@@ -1,0 +1,746 @@
+{% extends "user/base.html" %}
+
+{% block title %}Career Prediction Result{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ================================
+       MAIN PAGE
+    ================================= */
+
+    .result-page {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px;
+        box-sizing: border-box;
+
+        background: #ffffff;
+        color: #111827;
+    }
+
+    /* ================================
+       ONLY HEADING HAS BLUE BACKGROUND
+    ================================= */
+
+    .result-header {
+        background: #08245a;
+        color: #ffffff;
+
+        padding: 32px;
+        border-radius: 16px;
+
+        margin-bottom: 28px;
+
+        border: 1px solid #123b80;
+        box-shadow: 0 6px 18px rgba(8, 36, 90, 0.15);
+    }
+
+    .result-header h1 {
+        margin: 0 0 8px 0;
+
+        color: #ffffff !important;
+
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .result-header p {
+        margin: 0;
+
+        color: #dbeafe !important;
+
+        font-size: 15px;
+    }
+
+    /* ================================
+       TOP CAREER RESULT
+    ================================= */
+
+    .top-result {
+        background: #ffffff;
+
+        border: 2px solid #2563eb;
+        border-radius: 16px;
+
+        padding: 28px;
+
+        margin-bottom: 25px;
+
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .top-label {
+        display: inline-block;
+
+        background: #dbeafe;
+        color: #1d4ed8;
+
+        padding: 6px 12px;
+
+        border-radius: 20px;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        margin-bottom: 12px;
+    }
+
+    .career-name {
+        margin: 0 0 18px 0;
+
+        color: #08245a !important;
+
+        font-size: 34px;
+        font-weight: 900;
+
+        line-height: 1.2;
+    }
+
+    /* ================================
+       SCORE
+    ================================= */
+
+    .score-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 8px;
+    }
+
+    .score-title {
+        color: #374151;
+
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .score-value {
+        color: #1d4ed8;
+
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .score-bar {
+        width: 100%;
+        height: 12px;
+
+        background: #e5e7eb;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+    }
+
+    .score-fill {
+        height: 100%;
+
+        width: 0%;
+
+        background: #2563eb;
+
+        border-radius: 20px;
+
+        transition: width 0.8s ease;
+    }
+
+    /* ================================
+       GRID
+    ================================= */
+
+    .result-grid {
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 22px;
+
+        margin-bottom: 25px;
+    }
+
+    /* ================================
+       CARDS
+    ================================= */
+
+    .result-card {
+        background: #ffffff;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 14px;
+
+        padding: 22px;
+
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+
+    .result-card h2 {
+        margin: 0 0 18px 0;
+
+        color: #08245a !important;
+
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .info-item {
+        margin-bottom: 16px;
+    }
+
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-label {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #6b7280;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .info-value {
+        color: #111827 !important;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        line-height: 1.5;
+
+        word-break: break-word;
+    }
+
+    /* ================================
+       RECOMMENDATIONS
+    ================================= */
+
+    .recommendation-card {
+        background: #ffffff;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 14px;
+
+        padding: 24px;
+
+        margin-bottom: 25px;
+
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+
+    .recommendation-card h2 {
+        margin: 0 0 20px 0;
+
+        color: #08245a !important;
+
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .career-list {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 14px;
+    }
+
+    .career-item {
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 12px;
+
+        padding: 16px 18px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+    }
+
+    .career-info {
+        min-width: 0;
+    }
+
+    .career-title {
+        color: #111827;
+
+        font-size: 16px;
+        font-weight: 750;
+
+        margin-bottom: 5px;
+    }
+
+    .career-score {
+        color: #1d4ed8;
+
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .small-score-bar {
+        width: 160px;
+
+        height: 8px;
+
+        background: #e5e7eb;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+
+        flex-shrink: 0;
+    }
+
+    .small-score-fill {
+        height: 100%;
+
+        width: 0%;
+
+        background: #2563eb;
+
+        border-radius: 20px;
+    }
+
+    /* ================================
+       INSIGHT BOX
+    ================================= */
+
+    .insight-box {
+        background: #eff6ff;
+
+        border: 1px solid #bfdbfe;
+
+        border-radius: 14px;
+
+        padding: 22px;
+
+        margin-bottom: 25px;
+    }
+
+    .insight-box h3 {
+        margin: 0 0 8px 0;
+
+        color: #08245a;
+
+        font-size: 18px;
+    }
+
+    .insight-box p {
+        margin: 0;
+
+        color: #374151;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+    /* ================================
+       BUTTONS
+    ================================= */
+
+    .button-row {
+        display: flex;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+        margin-top: 20px;
+    }
+
+    .result-btn {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 11px 18px;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+    .primary-btn {
+        background: #08245a;
+
+        color: #ffffff !important;
+
+        border: 1px solid #08245a;
+    }
+
+    .primary-btn:hover {
+        background: #123b80;
+    }
+
+    .secondary-btn {
+        background: #ffffff;
+
+        color: #08245a !important;
+
+        border: 1px solid #94a3b8;
+    }
+
+    .secondary-btn:hover {
+        background: #f1f5f9;
+    }
+
+    /* ================================
+       RESPONSIVE
+    ================================= */
+
+    @media (max-width: 800px) {
+
+        .result-page {
+            padding: 18px;
+        }
+
+        .result-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .career-name {
+            font-size: 28px;
+        }
+
+        .result-header h1 {
+            font-size: 26px;
+        }
+
+        .career-item {
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+        .small-score-bar {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        .result-header {
+            padding: 24px;
+        }
+
+        .top-result {
+            padding: 20px;
+        }
+
+        .result-card {
+            padding: 18px;
+        }
+
+        .career-name {
+            font-size: 25px;
+        }
+    }
+</style>
+
+
+<div class="result-page">
+
+    <!-- =========================================
+         ONLY THIS SECTION HAS DARK BLUE BACKGROUND
+    ========================================== -->
+
+    <div class="result-header">
+
+        <h1>Career Prediction Result</h1>
+
+        <p>
+            Your personalized career recommendation based on your
+            education, skills, interests and experience.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         TOP CAREER
+    ========================================== -->
+
+    {% if careers and careers|length > 0 %}
+
+        {% set best = careers[0] %}
+
+        <div class="top-result">
+
+            <span class="top-label">
+                ⭐ Best Career Match
+            </span>
+
+            <h2 class="career-name">
+                {{ best['career'] }}
+            </h2>
+
+            <div class="score-row">
+
+                <span class="score-title">
+                    Prediction Confidence
+                </span>
+
+                <span class="score-value">
+                    {{ best['score'] }}%
+                </span>
+
+            </div>
+
+            <div class="score-bar">
+
+                <div
+                    class="score-fill"
+                    data-score="{{ best['score'] }}">
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================================
+         INPUT INFORMATION
+    ========================================== -->
+
+    <div class="result-grid">
+
+        <div class="result-card">
+
+            <h2>Education</h2>
+
+            <div class="info-item">
+
+                <span class="info-label">
+                    Education
+                </span>
+
+                <div class="info-value">
+                    {{ education or user['education'] or 'Not provided' }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <h2>Experience</h2>
+
+            <div class="info-item">
+
+                <span class="info-label">
+                    Experience
+                </span>
+
+                <div class="info-value">
+                    {{ experience or user['experience'] or 'Fresher' }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <h2>Skills</h2>
+
+            <div class="info-item">
+
+                <span class="info-label">
+                    Your Skills
+                </span>
+
+                <div class="info-value">
+                    {{ skills or user['skills'] or 'Not provided' }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <h2>Career Interests</h2>
+
+            <div class="info-item">
+
+                <span class="info-label">
+                    Interests
+                </span>
+
+                <div class="info-value">
+                    {{ interests or user['interests'] or 'Not provided' }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         RECOMMENDED CAREERS
+    ========================================== -->
+
+    {% if careers and careers|length > 1 %}
+
+        <div class="recommendation-card">
+
+            <h2>
+                Recommended Career Paths
+            </h2>
+
+            <div class="career-list">
+
+                {% for item in careers %}
+
+                    <div class="career-item">
+
+                        <div class="career-info">
+
+                            <div class="career-title">
+                                {{ loop.index }}. {{ item['career'] }}
+                            </div>
+
+                            <div class="career-score">
+                                Match Score: {{ item['score'] }}%
+                            </div>
+
+                        </div>
+
+                        <div class="small-score-bar">
+
+                            <div
+                                class="small-score-fill"
+                                data-score="{{ item['score'] }}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================================
+         INSIGHT
+    ========================================== -->
+
+    <div class="insight-box">
+
+        <h3>
+            💡 Career Insight
+        </h3>
+
+        <p>
+            Your prediction is generated by analyzing your education,
+            technical skills, career interests and experience. The
+            highest-scoring career represents the strongest match
+            according to the current recommendation model.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         BUTTONS
+    ========================================== -->
+
+    <div class="button-row">
+
+        <a
+            href="{{ url_for('prediction') }}"
+            class="result-btn primary-btn">
+
+            🔄 Predict Again
+
+        </a>
+
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="result-btn secondary-btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SCORE BAR JAVASCRIPT
+========================================== -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const scoreBars =
+            document.querySelectorAll("[data-score]");
+
+        scoreBars.forEach(function (bar) {
+
+            let score =
+                parseFloat(bar.getAttribute("data-score"));
+
+            if (isNaN(score)) {
+                score = 0;
+            }
+
+            if (score < 0) {
+                score = 0;
+            }
+
+            if (score > 100) {
+                score = 100;
+            }
+
+            bar.style.width = score + "%";
+
+        });
+
+    });
+
+</script>
+
+{% endblock %}

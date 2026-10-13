@@ -1,0 +1,447 @@
+{% extends "user/base.html" %}
+
+{% block title %}Apply for Job{% endblock %}
+
+{% block content %}
+
+<style>
+    .application-page {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 10px 0 50px;
+    }
+
+    .application-header {
+        margin-bottom: 25px;
+    }
+
+    .application-header h1 {
+        margin: 0 0 7px;
+        color: #111827;
+        font-size: 28px;
+    }
+
+    .application-header p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .application-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 20px;
+        box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+        overflow: hidden;
+    }
+
+    .job-summary {
+        padding: 22px 28px;
+        background: #f8fafc;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .job-summary h2 {
+        margin: 0 0 5px;
+        font-size: 19px;
+        color: #111827;
+    }
+
+    .job-summary p {
+        margin: 0;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .application-body {
+        padding: 30px;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+    }
+
+    .form-section-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #edf0f4;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #d1d5db;
+        border-radius: 11px;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: #1f2937;
+        background: #ffffff;
+        outline: none;
+        transition: 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #6b7280;
+        box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.10);
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .file-box {
+        border: 1.5px dashed #cbd5e1;
+        border-radius: 13px;
+        padding: 20px;
+        background: #f8fafc;
+        transition: 0.2s ease;
+    }
+
+    .file-box:hover {
+        border-color: #94a3b8;
+    }
+
+    .file-box input {
+        border: none;
+        padding: 0;
+        background: transparent;
+    }
+
+    .file-help {
+        margin-top: 7px;
+        color: #94a3b8;
+        font-size: 12px;
+    }
+
+    .required {
+        color: #dc2626;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .cancel-btn {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .cancel-btn:hover {
+        color: #111827;
+    }
+
+    .submit-btn {
+        border: none;
+        border-radius: 11px;
+        background: #111827;
+        color: #ffffff;
+        padding: 13px 25px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        background: #374151;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 700px) {
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+        .application-body {
+            padding: 20px;
+        }
+
+        .job-summary {
+            padding: 20px;
+        }
+
+        .form-actions {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
+
+        .cancel-btn {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="application-page">
+
+    <div class="application-header">
+
+        <h1>Apply for Position</h1>
+
+        <p>
+            Complete the application form below and submit your resume.
+        </p>
+
+    </div>
+
+    <div class="application-card">
+
+        <!-- JOB SUMMARY -->
+
+        <div class="job-summary">
+
+            <div>
+
+                <h2>
+                    {{ job['title'] }}
+                </h2>
+
+                <p>
+                    {{ job['company'] }} • {{ job['location'] }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- APPLICATION FORM -->
+
+        <div class="application-body">
+
+            <form
+                method="POST"
+                action="{{ url_for('apply_job', job_id=job['id']) }}"
+                enctype="multipart/form-data"
+            >
+
+                <!-- PERSONAL INFORMATION -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Personal Information
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Full Name <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="full_name"
+                                placeholder="Enter your full name"
+                                value="{{ user['name'] if user else '' }}"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Email <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                value="{{ user['email'] if user else '' }}"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Phone Number <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Education <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="education"
+                                placeholder="e.g. BSc IT"
+                                value="{{ user['education'] if user else '' }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PROFESSIONAL INFORMATION -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Professional Information
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Skills <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="skills"
+                                placeholder="e.g. Python, SQL, Machine Learning"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Experience
+                            </label>
+
+                            <input
+                                type="text"
+                                name="experience"
+                                placeholder="e.g. Fresher / 1 Year"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- RESUME -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Resume
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Upload Resume <span class="required">*</span>
+                        </label>
+
+                        <div class="file-box">
+
+                            <input
+                                type="file"
+                                name="resume"
+                                accept=".pdf,.doc,.docx"
+                                required
+                            >
+
+                            <div class="file-help">
+                                Accepted formats: PDF, DOC, DOCX
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{{ url_for('job_details', job_id=job['id']) }}"
+                        class="cancel-btn"
+                    >
+                        ← Back to Job Details
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                    >
+                        Submit Application
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

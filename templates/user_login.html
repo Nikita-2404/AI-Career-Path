@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Path | User Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(37, 99, 235, 0.15),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(124, 58, 237, 0.15),
+                    transparent 30%
+                ),
+                #eef4ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .login-container {
+
+            width: 1000px;
+
+            min-height: 600px;
+
+            display: grid;
+
+            grid-template-columns: 52% 48%;
+
+            background: white;
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 65px rgba(15, 23, 42, 0.18);
+
+            position: relative;
+        }
+
+
+        /* =========================================
+           LEFT IMAGE SECTION
+        ========================================= */
+
+        .visual-section {
+
+            position: relative;
+
+            min-height: 600px;
+
+            background-image:
+                linear-gradient(
+                    135deg,
+                    rgba(5, 20, 55, 0.82),
+                    rgba(16, 45, 100, 0.55),
+                    rgba(37, 99, 235, 0.30)
+                ),
+                url("{{ url_for('static', filename='css/images/foundation.jpg') }}");
+
+            background-size: cover;
+
+            background-position: center;
+
+            color: white;
+
+            padding: 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+        }
+
+
+        /* IMAGE OVERLAY */
+
+        .visual-section::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(96, 165, 250, 0.35),
+                    transparent 30%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================
+           BRAND
+        ========================================= */
+
+        .brand {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.25);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+
+            backdrop-filter: blur(12px);
+        }
+
+
+        .brand-text {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        /* =========================================
+           HERO TEXT
+        ========================================= */
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 440px;
+        }
+
+
+        .small-heading {
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2.5px;
+
+            color: #93c5fd;
+
+            font-weight: 700;
+
+            margin-bottom: 14px;
+        }
+
+
+        .hero-content h1 {
+
+            font-size: 44px;
+
+            line-height: 1.05;
+
+            margin-bottom: 17px;
+
+            font-weight: 800;
+        }
+
+
+        .gradient-text {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa,
+                    #c084fc
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .hero-content p {
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color: #e2e8f0;
+
+            max-width: 420px;
+        }
+
+
+        /* =========================================
+           FEATURE CARDS
+        ========================================= */
+
+        .feature-list {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+
+            margin-top: 22px;
+        }
+
+
+        .feature {
+
+            padding: 8px 11px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.11);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.16);
+
+            backdrop-filter: blur(12px);
+
+            font-size: 10px;
+
+            color: #f8fafc;
+        }
+
+
+        /* =========================================
+           RIGHT LOGIN SECTION
+        ========================================= */
+
+        .login-section {
+
+            padding: 40px 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(99, 102, 241, 0.08),
+                    transparent 35%
+                ),
+                #ffffff;
+        }
+
+
+        .login-box {
+
+            width: 100%;
+
+            max-width: 360px;
+        }
+
+
+        /* =========================================
+           LOGIN BRAND
+        ========================================= */
+
+        .login-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 32px;
+        }
+
+
+        .login-logo {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+            box-shadow:
+                0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+
+        .login-brand h2 {
+
+            font-size: 18px;
+
+            color: #0f172a;
+        }
+
+
+        .login-brand span {
+
+            display: block;
+
+            font-size: 9px;
+
+            color: #64748b;
+
+            margin-top: 2px;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        /* =========================================
+           LOGIN TITLE
+        ========================================= */
+
+        .login-title {
+
+            margin-bottom: 23px;
+        }
+
+
+        .login-title h1 {
+
+            font-size: 32px;
+
+            color: #0f172a;
+
+            margin-bottom: 7px;
+        }
+
+
+        .login-title p {
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           FLASH MESSAGE
+        ========================================= */
+
+        .alert {
+
+            padding: 10px 13px;
+
+            border-radius: 10px;
+
+            margin-bottom: 17px;
+
+            font-size: 12px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            border: 1px solid #bbf7d0;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .form-group {
+
+            margin-bottom: 16px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #1e293b;
+
+            margin-bottom: 6px;
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            pointer-events: none;
+        }
+
+
+        .form-control {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: 1px solid #d7deea;
+
+            border-radius: 12px;
+
+            padding:
+                0 15px 0 42px;
+
+            font-size: 13px;
+
+            color: #0f172a;
+
+            outline: none;
+
+            background: #f8fafc;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .form-control:hover {
+
+            border-color: #b8c4d8;
+
+            background: #ffffff;
+        }
+
+
+        .form-control:focus {
+
+            border-color: #6366f1;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            margin-top: 5px;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px rgba(79, 70, 229, 0.25);
+
+            transition: all 0.25s ease;
+        }
+
+
+        .login-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 27px rgba(79, 70, 229, 0.35);
+        }
+
+
+        .login-button:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           REGISTER
+        ========================================= */
+
+        .register-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        .register-text a {
+
+            color: #4f46e5;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+
+        .register-text a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           ADMIN LOGIN
+        ========================================= */
+
+        .admin-login-text {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        .admin-login-text a {
+
+            color: #2563eb;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+
+        .admin-login-text a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           SECURITY
+        ========================================= */
+
+        .secure-text {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #94a3b8;
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .login-container {
+
+                width: 700px;
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .visual-section {
+
+                min-height: 400px;
+
+                padding: 35px;
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 38px;
+            }
+
+
+            .login-section {
+
+                padding: 40px;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 12px;
+            }
+
+
+            .login-container {
+
+                width: 100%;
+
+                border-radius: 18px;
+            }
+
+
+            .visual-section {
+
+                min-height: 350px;
+
+                padding: 28px;
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 32px;
+            }
+
+
+            .hero-content p {
+
+                font-size: 13px;
+            }
+
+
+            .login-section {
+
+                padding: 32px 22px;
+            }
+
+
+            .login-title h1 {
+
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <!-- ===================================== -->
+    <!-- LEFT SIDE -->
+    <!-- ===================================== -->
+
+    <section class="visual-section">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ✦
+            </div>
+
+            <div class="brand-text">
+                AI Career Path
+            </div>
+
+        </div>
+
+
+        <div class="hero-content">
+
+            <div class="small-heading">
+                AI-Powered Career Intelligence
+            </div>
+
+            <h1>
+
+                Build Your
+
+                <span class="gradient-text">
+                    Future
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Discover the right career direction,
+                explore opportunities, and create a
+                personalized roadmap powered by
+                artificial intelligence.
+
+            </p>
+
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    ✦ Career Prediction
+                </div>
+
+                <div class="feature">
+                    ◈ Job Recommendations
+                </div>
+
+                <div class="feature">
+                    ◎ Career Roadmap
+                </div>
+
+                <div class="feature">
+                    ◆ AI Insights
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div style="
+            position: relative;
+            z-index: 2;
+            font-size: 10px;
+            color: #cbd5e1;
+        ">
+
+            Learn &nbsp; • &nbsp;
+            Grow &nbsp; • &nbsp;
+            Build &nbsp; • &nbsp;
+            Succeed
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- RIGHT LOGIN -->
+    <!-- ===================================== -->
+
+    <section class="login-section">
+
+
+        <div class="login-box">
+
+
+            <!-- BRAND -->
+
+            <div class="login-brand">
+
+                <div class="login-logo">
+                    AI
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        AI Career Path
+                    </h2>
+
+                    <span>
+                        SMART CAREER • BETTER FUTURE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <div class="login-title">
+
+                <h1>
+                    User Login
+                </h1>
+
+                <p>
+                    Access your personalized career dashboard.
+                </p>
+
+            </div>
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="alert">
+
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                method="POST"
+                action="{{ url_for('user_login') }}"
+            >
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter your email"
+                            required
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+
+                    Login
+                    &nbsp; →
+
+                </button>
+
+
+            </form>
+
+
+            <!-- REGISTER -->
+
+            <div class="register-text">
+
+                New user?
+
+                <a href="{{ url_for('register') }}">
+                    Register here
+                </a>
+
+            </div>
+
+
+            <!-- ADMIN LOGIN -->
+
+            <div class="admin-login-text">
+
+                Are you an administrator?
+
+                <a href="{{ url_for('admin_login') }}">
+                    ← Admin Login
+                </a>
+
+            </div>
+
+
+            <!-- SECURITY -->
+
+            <div class="secure-text">
+
+                🔐 Your career information is securely protected.
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+</body>
+
+</html>

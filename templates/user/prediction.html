@@ -1,0 +1,848 @@
+{% extends "user/base.html" %}
+
+{% block title %}
+Career Prediction
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.prediction-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.prediction-header {
+    background: linear-gradient(
+        135deg,
+        #071b3a,
+        #174d82
+    );
+
+    color: white;
+    padding: 28px 32px;
+    border-radius: 18px;
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.10);
+}
+
+.prediction-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: 0.85;
+    margin-bottom: 8px;
+}
+
+.prediction-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.prediction-header p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    opacity: 0.90;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   FORM CARD
+================================ */
+
+.prediction-card {
+    background: white;
+    border: 1px solid #e5eaf1;
+    border-radius: 18px;
+    padding: 28px;
+
+    box-shadow:
+        0 8px 25px rgba(20,40,70,0.06);
+}
+
+
+/* ================================
+   SECTION TITLE
+================================ */
+
+.form-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #14213d;
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    color: #718096;
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+
+/* ================================
+   FORM GRID
+================================ */
+
+.form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* ================================
+   FIELD
+================================ */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #26364d;
+    margin-bottom: 8px;
+}
+
+.form-group select {
+    width: 100%;
+    height: 46px;
+
+    border: 1px solid #d9e1eb;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #27364d;
+
+    padding: 0 13px;
+    font-size: 14px;
+
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group select:focus {
+    border-color: #2463a5;
+
+    box-shadow:
+        0 0 0 3px rgba(36,99,165,0.10);
+}
+
+
+/* ================================
+   REQUIRED
+================================ */
+
+.required {
+    color: #e53e3e;
+}
+
+
+/* ================================
+   SKILLS
+================================ */
+
+.skills-heading {
+    margin-top: 25px;
+    margin-bottom: 15px;
+
+    padding-bottom: 10px;
+
+    border-bottom:
+        1px solid #edf1f5;
+
+    font-size: 15px;
+    font-weight: 700;
+    color: #26364d;
+}
+
+
+/* ================================
+   BUTTON
+================================ */
+
+.predict-button {
+    width: 100%;
+    margin-top: 28px;
+
+    height: 50px;
+
+    border: none;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #174d82,
+            #236aa9
+        );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.2s;
+
+    box-shadow:
+        0 7px 18px rgba(23,77,130,0.22);
+}
+
+.predict-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 22px rgba(23,77,130,0.28);
+}
+
+
+/* ================================
+   INFO
+================================ */
+
+.prediction-info {
+    margin-top: 18px;
+
+    background: #f6f9fc;
+    border: 1px solid #e4ebf3;
+
+    border-radius: 12px;
+
+    padding: 14px 16px;
+
+    color: #64748b;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width: 800px) {
+
+    .prediction-page {
+        padding: 15px;
+    }
+
+    .prediction-header {
+        padding: 22px;
+    }
+
+    .prediction-header h1 {
+        font-size: 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .prediction-card {
+        padding: 20px;
+    }
+}
+
+</style>
+
+
+<div class="prediction-page">
+
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <div class="prediction-header">
+
+        <div class="prediction-label">
+            ✦ AI CAREER PREDICTION
+        </div>
+
+        <h1>
+            {{ user['name'] }}, let's find your career path 🚀
+        </h1>
+
+        <p>
+            Answer a few questions about your education,
+            experience, interests and skills.
+            Our recommendation system will suggest the
+            most suitable IT career for you.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         FORM
+    ========================================= -->
+
+    <div class="prediction-card">
+
+        <div class="form-title">
+            Career Assessment
+        </div>
+
+        <div class="form-subtitle">
+            Select the options that best describe your current
+            background and interests.
+        </div>
+
+
+        <!--
+        IMPORTANT:
+        The Flask endpoint is "prediction",
+        NOT "predict".
+        -->
+
+        <form
+            method="POST"
+            action="{{ url_for('prediction') }}"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- EDUCATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Education
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        name="education"
+                        required
+                    >
+
+                        <option value="">
+                            Select Education
+                        </option>
+
+                        <option value="BSc IT">
+                            BSc IT
+                        </option>
+
+                        <option value="BCA">
+                            BCA
+                        </option>
+
+                        <option value="B.Tech">
+                            B.Tech
+                        </option>
+
+                        <option value="MCA">
+                            MCA
+                        </option>
+
+                        <option value="M.Tech">
+                            M.Tech
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Experience
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        name="experience"
+                        required
+                    >
+
+                        <option value="">
+                            Select Experience
+                        </option>
+
+                        <option value="Fresher">
+                            Fresher
+                        </option>
+
+                        <option value="0-1 Years">
+                            0-1 Years
+                        </option>
+
+                        <option value="1-3 Years">
+                            1-3 Years
+                        </option>
+
+                        <option value="3+ Years">
+                            3+ Years
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CAREER DOMAIN -->
+
+                <div class="form-group">
+
+                    <label>
+                        Career Domain
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        name="career_domain"
+                        required
+                    >
+
+                        <option value="">
+                            Select Career Domain
+                        </option>
+
+                        <option value="Data Science">
+                            Data Science
+                        </option>
+
+                        <option value="Artificial Intelligence">
+                            Artificial Intelligence
+                        </option>
+
+                        <option value="Software Development">
+                            Software Development
+                        </option>
+
+                        <option value="Web Development">
+                            Web Development
+                        </option>
+
+                        <option value="Cyber Security">
+                            Cyber Security
+                        </option>
+
+                        <option value="Cloud Computing">
+                            Cloud Computing
+                        </option>
+
+                        <option value="Data Analytics">
+                            Data Analytics
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Software Testing">
+                            Software Testing
+                        </option>
+
+                        <option value="Design">
+                            Design
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- INTEREST -->
+
+                <div class="form-group">
+
+                    <label>
+                        Career Interest
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        name="interests"
+                        required
+                    >
+
+                        <option value="">
+                            Select Interest
+                        </option>
+
+                        <option value="Data">
+                            Data
+                        </option>
+
+                        <option value="Data Science">
+                            Data Science
+                        </option>
+
+                        <option value="Analytics">
+                            Analytics
+                        </option>
+
+                        <option value="Artificial Intelligence">
+                            Artificial Intelligence
+                        </option>
+
+                        <option value="Machine Learning">
+                            Machine Learning
+                        </option>
+
+                        <option value="Programming">
+                            Programming
+                        </option>
+
+                        <option value="Web">
+                            Web Development
+                        </option>
+
+                        <option value="Security">
+                            Cyber Security
+                        </option>
+
+                        <option value="Cloud">
+                            Cloud Computing
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Testing">
+                            Software Testing
+                        </option>
+
+                        <option value="Design">
+                            UI/UX Design
+                        </option>
+
+                        <option value="DevOps">
+                            DevOps
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 SKILLS
+            ========================================= -->
+
+            <div class="skills-heading">
+                Your Technical Skills
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- SKILL 1 -->
+
+                <div class="form-group">
+
+                    <label>
+                        Skill 1
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        name="skill1"
+                        required
+                    >
+
+                        <option value="">
+                            Select Skill
+                        </option>
+
+                        <option value="Python">
+                            Python
+                        </option>
+
+                        <option value="SQL">
+                            SQL
+                        </option>
+
+                        <option value="Java">
+                            Java
+                        </option>
+
+                        <option value="JavaScript">
+                            JavaScript
+                        </option>
+
+                        <option value="HTML">
+                            HTML
+                        </option>
+
+                        <option value="CSS">
+                            CSS
+                        </option>
+
+                        <option value="Machine Learning">
+                            Machine Learning
+                        </option>
+
+                        <option value="Power BI">
+                            Power BI
+                        </option>
+
+                        <option value="Tableau">
+                            Tableau
+                        </option>
+
+                        <option value="AWS">
+                            AWS
+                        </option>
+
+                        <option value="Cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                        <option value="Docker">
+                            Docker
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="MySQL">
+                            MySQL
+                        </option>
+
+                        <option value="Figma">
+                            Figma
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SKILL 2 -->
+
+                <div class="form-group">
+
+                    <label>
+                        Skill 2
+                    </label>
+
+                    <select
+                        name="skill2"
+                    >
+
+                        <option value="">
+                            Select Skill
+                        </option>
+
+                        <option value="Python">
+                            Python
+                        </option>
+
+                        <option value="SQL">
+                            SQL
+                        </option>
+
+                        <option value="Java">
+                            Java
+                        </option>
+
+                        <option value="JavaScript">
+                            JavaScript
+                        </option>
+
+                        <option value="HTML">
+                            HTML
+                        </option>
+
+                        <option value="CSS">
+                            CSS
+                        </option>
+
+                        <option value="Machine Learning">
+                            Machine Learning
+                        </option>
+
+                        <option value="Power BI">
+                            Power BI
+                        </option>
+
+                        <option value="Tableau">
+                            Tableau
+                        </option>
+
+                        <option value="AWS">
+                            AWS
+                        </option>
+
+                        <option value="Cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                        <option value="Docker">
+                            Docker
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="MySQL">
+                            MySQL
+                        </option>
+
+                        <option value="Figma">
+                            Figma
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SKILL 3 -->
+
+                <div class="form-group">
+
+                    <label>
+                        Skill 3
+                    </label>
+
+                    <select
+                        name="skill3"
+                    >
+
+                        <option value="">
+                            Select Skill
+                        </option>
+
+                        <option value="Python">
+                            Python
+                        </option>
+
+                        <option value="SQL">
+                            SQL
+                        </option>
+
+                        <option value="Java">
+                            Java
+                        </option>
+
+                        <option value="JavaScript">
+                            JavaScript
+                        </option>
+
+                        <option value="HTML">
+                            HTML
+                        </option>
+
+                        <option value="CSS">
+                            CSS
+                        </option>
+
+                        <option value="Machine Learning">
+                            Machine Learning
+                        </option>
+
+                        <option value="Power BI">
+                            Power BI
+                        </option>
+
+                        <option value="Tableau">
+                            Tableau
+                        </option>
+
+                        <option value="AWS">
+                            AWS
+                        </option>
+
+                        <option value="Cybersecurity">
+                            Cybersecurity
+                        </option>
+
+                        <option value="Docker">
+                            Docker
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="MySQL">
+                            MySQL
+                        </option>
+
+                        <option value="Figma">
+                            Figma
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 BUTTON
+            ========================================= -->
+
+            <button
+                type="submit"
+                class="predict-button"
+            >
+                🎯 Predict My Career
+            </button>
+
+
+            <div class="prediction-info">
+
+                <strong>How it works:</strong>
+
+                Your education, experience, career domain,
+                interests and selected technical skills are
+                analyzed by the career recommendation model.
+                The system then ranks suitable career paths
+                and displays the highest-scoring recommendation.
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

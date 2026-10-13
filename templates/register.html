@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Path | Registration</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(37, 99, 235, 0.14),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(124, 58, 237, 0.14),
+                    transparent 30%
+                ),
+                #eef4ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .auth-container {
+
+            width: min(
+                1180px,
+                calc(100vw - 50px)
+            );
+
+            min-height: 700px;
+
+            display: grid;
+
+            grid-template-columns: 53% 47%;
+
+            background: #ffffff;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px
+                rgba(15, 23, 42, 0.18);
+
+        }
+
+
+        /* =====================================================
+           LEFT IMAGE
+        ===================================================== */
+
+        .auth-image {
+
+            position: relative;
+
+            min-width: 0;
+
+            min-height: 700px;
+
+            overflow: hidden;
+
+            background: #071a3b;
+        }
+
+
+        .auth-image img {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            /*
+              Keeps the important part of the
+              career image visible.
+            */
+
+            object-position: center center;
+
+            display: block;
+
+        }
+
+
+        /* Dark overlay */
+
+        .auth-image::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 1;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(5, 20, 50, 0.12),
+                    rgba(5, 20, 50, 0.30) 45%,
+                    rgba(3, 12, 35, 0.88) 100%
+                );
+
+        }
+
+
+        /* Blue glow */
+
+        .auth-image::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+
+            height: 280px;
+
+            top: -120px;
+
+            left: -100px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(59, 130, 246, 0.35),
+                    transparent 70%
+                );
+
+            z-index: 2;
+
+        }
+
+
+        /* =====================================================
+           IMAGE CONTENT
+        ===================================================== */
+
+        .image-content {
+
+            position: absolute;
+
+            z-index: 5;
+
+            left: 45px;
+
+            right: 45px;
+
+            bottom: 42px;
+
+            color: white;
+
+        }
+
+
+        .image-tag {
+
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+
+            backdrop-filter: blur(12px);
+
+            font-size: 9px;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .image-content h1 {
+
+            font-size: 42px;
+
+            line-height: 1.05;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .image-content h1 span {
+
+            color: #93c5fd;
+
+        }
+
+
+        .image-content p {
+
+            max-width: 460px;
+
+            color: #e2e8f0;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =====================================================
+           FEATURES
+        ===================================================== */
+
+        .features {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+        }
+
+
+        .feature {
+
+            padding: 9px 13px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.10);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.18);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 10px;
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           RIGHT FORM SECTION
+        ===================================================== */
+
+        .auth-box {
+
+            padding: 42px 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(99, 102, 241, 0.08),
+                    transparent 35%
+                ),
+                #ffffff;
+
+        }
+
+
+        .form-content {
+
+            width: 100%;
+
+            max-width: 420px;
+
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo-small {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .logo-small img {
+
+            width: 47px;
+
+            height: 47px;
+
+            object-fit: cover;
+
+            border-radius: 13px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(37, 99, 235, 0.18);
+
+        }
+
+
+        .logo-small h2 {
+
+            font-size: 20px;
+
+            color: #0f172a;
+
+            font-weight: 750;
+
+        }
+
+
+        .logo-small span {
+
+            display: block;
+
+            color: #64748b;
+
+            font-size: 9px;
+
+            letter-spacing: 1px;
+
+            margin-top: 3px;
+
+        }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        .auth-box h1 {
+
+            font-size: 34px;
+
+            line-height: 1.1;
+
+            color: #0f172a;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .gradient {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #6366f1,
+                    #7c3aed
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =====================================================
+           FLASH MESSAGE
+        ===================================================== */
+
+        .message {
+
+            padding: 10px 13px;
+
+            border-radius: 10px;
+
+            margin-bottom: 12px;
+
+            font-size: 12px;
+
+        }
+
+
+        .message.success {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            border: 1px solid #bbf7d0;
+
+        }
+
+
+        .message.danger,
+        .message.error {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            border: 1px solid #fecaca;
+
+        }
+
+
+        .message.warning {
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+            border: 1px solid #fde68a;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        form {
+
+            width: 100%;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 12px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            color: #1e293b;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 14px;
+
+            color: #64748b;
+
+            pointer-events: none;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            height: 45px;
+
+            border: 1px solid #d8e0ec;
+
+            border-radius: 11px;
+
+            background: #f8fafc;
+
+            color: #0f172a;
+
+            font-size: 12px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        input {
+
+            padding: 0 13px 0 40px;
+
+        }
+
+
+        select {
+
+            padding: 0 13px;
+
+            cursor: pointer;
+
+        }
+
+
+        input:hover,
+        select:hover {
+
+            background: white;
+
+            border-color: #b8c4d8;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            background: white;
+
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, 0.10);
+
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+        ===================================================== */
+
+        .register-button {
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px
+                rgba(79, 70, 229, 0.25);
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .register-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 28px
+                rgba(79, 70, 229, 0.35);
+
+        }
+
+
+        /* =====================================================
+           LOGIN LINK
+        ===================================================== */
+
+        .bottom-text {
+
+            text-align: center;
+
+            margin-top: 17px;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+        }
+
+
+        .bottom-text a {
+
+            color: #4f46e5;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            margin-left: 3px;
+
+        }
+
+
+        .bottom-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        .secure-text {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            color: #94a3b8;
+
+            font-size: 9px;
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            body {
+
+                padding: 15px;
+
+            }
+
+
+            .auth-container {
+
+                width: min(
+                    760px,
+                    calc(100vw - 30px)
+                );
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .auth-image {
+
+                min-height: 400px;
+
+                height: 400px;
+
+            }
+
+
+            .auth-box {
+
+                padding: 40px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 10px;
+
+            }
+
+
+            .auth-container {
+
+                width: 100%;
+
+                border-radius: 20px;
+
+            }
+
+
+            .auth-image {
+
+                min-height: 330px;
+
+                height: 330px;
+
+            }
+
+
+            .image-content {
+
+                left: 25px;
+
+                right: 25px;
+
+                bottom: 25px;
+
+            }
+
+
+            .image-content h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .image-content p {
+
+                font-size: 11px;
+
+            }
+
+
+            .auth-box {
+
+                padding: 32px 25px;
+
+            }
+
+
+            .auth-box h1 {
+
+                font-size: 29px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="auth-container">
+
+
+    <!-- =====================================================
+         LEFT SIDE - PHOTO
+    ====================================================== -->
+
+    <div class="auth-image">
+
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='css/images/login.jpg'
+            ) }}"
+            alt="AI Career Path"
+        >
+
+
+        <div class="image-content">
+
+
+            <div class="image-tag">
+
+                AI POWERED CAREER PLATFORM
+
+            </div>
+
+
+            <h1>
+
+                Build Your
+                <span>Future</span>
+
+            </h1>
+
+
+            <p>
+
+                Create your profile, discover your
+                career direction, explore opportunities
+                and build a personalized roadmap
+                for your professional journey.
+
+            </p>
+
+
+            <div class="features">
+
+
+                <div class="feature">
+                    ✦ Career Prediction
+                </div>
+
+
+                <div class="feature">
+                    ◈ Job Recommendations
+                </div>
+
+
+                <div class="feature">
+                    ◎ Career Roadmap
+                </div>
+
+
+                <div class="feature">
+                    ◆ AI Insights
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RIGHT SIDE - REGISTRATION
+    ====================================================== -->
+
+    <div class="auth-box">
+
+
+        <div class="form-content">
+
+
+            <!-- LOGO -->
+
+            <div class="logo-small">
+
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='css/images/logo.jpg'
+                    ) }}"
+                    alt="AI Career Path"
+                >
+
+
+                <div>
+
+                    <h2>
+                        AI Career Path
+                    </h2>
+
+                    <span>
+                        SMART CAREER • BETTER FUTURE
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1>
+
+                Create Your
+                <span class="gradient">
+                    Account
+                </span>
+
+            </h1>
+
+
+            <p class="subtitle">
+
+                Start your personalized
+                AI-powered career journey.
+
+            </p>
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(
+                with_categories=true
+            ) %}
+
+
+                {% for category, message in messages %}
+
+                    <div class="message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% endwith %}
+
+
+
+            <!-- REGISTRATION FORM -->
+
+            <form method="POST">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+
+                        <span class="input-icon">
+                            ✓
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Confirm your password"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EDUCATION -->
+
+                <div class="form-group">
+
+
+                    <label for="education">
+                        Education Level
+                    </label>
+
+
+                    <select
+                        name="education"
+                        id="education"
+                        required
+                    >
+
+
+                        <option value="">
+                            Select Education Level
+                        </option>
+
+
+                        <option value="B.Sc IT">
+                            B.Sc IT
+                        </option>
+
+
+                        <option value="BCA">
+                            BCA
+                        </option>
+
+
+                        <option value="B.Tech">
+                            B.Tech
+                        </option>
+
+
+                        <option value="B.E">
+                            B.E
+                        </option>
+
+
+                        <option value="MCA">
+                            MCA
+                        </option>
+
+
+                        <option value="M.Sc">
+                            M.Sc
+                        </option>
+
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="register-button"
+                >
+
+                    Create Account
+                    &nbsp; →
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- LOGIN -->
+
+            <p class="bottom-text">
+
+                Already have an account?
+
+                <a href="{{ url_for('user_login') }}">
+                    Login
+                </a>
+
+            </p>
+
+
+            <div class="secure-text">
+
+                🔐 Your information is securely protected.
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

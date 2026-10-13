@@ -1,0 +1,2374 @@
+{% extends "user/base.html" %}
+
+
+{% block title %}
+My Profile | AI Career Path
+{% endblock %}
+
+
+{% block page_heading %}
+My Profile
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    /* =====================================================
+       PROFILE PAGE
+    ===================================================== */
+
+    .profile-page {
+
+        width: 100%;
+
+        min-height:
+            calc(100vh - 72px);
+
+        padding:
+            26px 30px 45px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #f8fafc 0%,
+                #f1f5f9 100%
+            );
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .profile-hero {
+
+        width: 100%;
+
+        min-height: 180px;
+
+        border-radius: 22px;
+
+        padding:
+            30px 34px;
+
+        margin-bottom: 22px;
+
+        position: relative;
+
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                135deg,
+                #111827 0%,
+                #1e3a8a 55%,
+                #312e81 100%
+            );
+
+        color: white;
+
+        box-shadow:
+            0 18px 45px
+            rgba(15,23,42,0.16);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+
+    .profile-hero::before {
+
+        content: "";
+
+        position: absolute;
+
+        width: 240px;
+
+        height: 240px;
+
+        right: 60px;
+
+        top: -100px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.08);
+    }
+
+
+    .profile-hero::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 160px;
+
+        height: 160px;
+
+        right: -40px;
+
+        bottom: -70px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.07);
+    }
+
+
+    .hero-content {
+
+        position: relative;
+
+        z-index: 2;
+
+        max-width: 700px;
+    }
+
+
+    .hero-small {
+
+        font-size: 11px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.8px;
+
+        text-transform: uppercase;
+
+        color: #bfdbfe;
+
+        margin-bottom: 8px;
+    }
+
+
+    .hero-title {
+
+        font-size: 30px;
+
+        line-height: 1.15;
+
+        font-weight: 850;
+
+        margin-bottom: 9px;
+    }
+
+
+    .hero-description {
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+        color: #dbeafe;
+
+        max-width: 620px;
+    }
+
+
+    .hero-badge {
+
+        position: relative;
+
+        z-index: 2;
+
+        min-width: 130px;
+
+        height: 130px;
+
+        border-radius: 28px;
+
+        background:
+            rgba(255,255,255,0.10);
+
+        border:
+            1px solid
+            rgba(255,255,255,0.15);
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        backdrop-filter:
+            blur(10px);
+    }
+
+
+    .hero-badge-icon {
+
+        font-size: 40px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .hero-badge-text {
+
+        font-size: 11px;
+
+        color: #dbeafe;
+
+        font-weight: 700;
+
+        text-align: center;
+    }
+
+
+    /* =====================================================
+       PROFILE GRID
+    ===================================================== */
+
+    .profile-grid {
+
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            minmax(250px, 0.75fr)
+            minmax(500px, 2fr);
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    /* =====================================================
+       CARDS
+    ===================================================== */
+
+    .profile-card {
+
+        background: white;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius: 20px;
+
+        padding: 24px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(15,23,42,0.06);
+    }
+
+
+    .card-title {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 20px;
+
+        font-size: 17px;
+
+        font-weight: 800;
+
+        color: #111827;
+    }
+
+
+    .card-title-icon {
+
+        width: 36px;
+
+        height: 36px;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #eff6ff;
+
+        color: #2563eb;
+
+        font-size: 17px;
+    }
+
+
+    .card-description {
+
+        color: #64748b;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+
+        margin-top: -10px;
+
+        margin-bottom: 18px;
+    }
+
+
+    /* =====================================================
+       PROFILE PHOTO
+    ===================================================== */
+
+    .photo-card {
+
+        text-align: center;
+
+        position: sticky;
+
+        top: 96px;
+    }
+
+
+    .profile-photo {
+
+        width: 150px;
+
+        height: 150px;
+
+        margin:
+            5px auto 17px;
+
+        border-radius: 50%;
+
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+
+        border:
+            6px solid white;
+
+        outline:
+            2px solid #dbeafe;
+
+        box-shadow:
+            0 14px 35px
+            rgba(37,99,235,0.20);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        color: white;
+
+        font-size: 46px;
+
+        font-weight: 800;
+    }
+
+
+    .profile-photo img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+
+    .profile-name {
+
+        font-size: 21px;
+
+        font-weight: 850;
+
+        color: #111827;
+
+        margin-bottom: 5px;
+    }
+
+
+    .profile-email {
+
+        color: #64748b;
+
+        font-size: 12px;
+
+        word-break: break-word;
+
+        margin-bottom: 20px;
+    }
+
+
+    .photo-upload {
+
+        display: block;
+
+        width: 100%;
+
+        padding: 11px 14px;
+
+        border-radius: 11px;
+
+        background: #f8fafc;
+
+        border:
+            1px dashed #cbd5e1;
+
+        color: #475569;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+
+    .photo-upload:hover {
+
+        border-color: #2563eb;
+
+        color: #2563eb;
+
+        background: #eff6ff;
+    }
+
+
+    .photo-upload input {
+
+        display: none;
+    }
+
+
+    .photo-note {
+
+        margin-top: 8px;
+
+        font-size: 10px;
+
+        color: #94a3b8;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       PROFILE MINI STATS
+    ===================================================== */
+
+    .mini-info {
+
+        margin-top: 24px;
+
+        display: grid;
+
+        gap: 10px;
+    }
+
+
+    .mini-info-row {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding:
+            11px 12px;
+
+        border-radius: 10px;
+
+        background: #f8fafc;
+
+        border:
+            1px solid #eef2f7;
+    }
+
+
+    .mini-info-row span:first-child {
+
+        color: #64748b;
+
+        font-size: 11px;
+
+        font-weight: 600;
+    }
+
+
+    .mini-info-row span:last-child {
+
+        color: #1e293b;
+
+        font-size: 11px;
+
+        font-weight: 800;
+
+        text-align: right;
+    }
+
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    .form-section {
+
+        margin-bottom: 25px;
+    }
+
+
+    .form-section:last-child {
+
+        margin-bottom: 0;
+    }
+
+
+    .section-heading {
+
+        font-size: 13px;
+
+        font-weight: 850;
+
+        color: #334155;
+
+        padding-bottom: 10px;
+
+        margin-bottom: 15px;
+
+        border-bottom:
+            1px solid #eef2f7;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+
+    .section-heading span {
+
+        color: #2563eb;
+    }
+
+
+    .form-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+
+
+    .form-group {
+
+        min-width: 0;
+    }
+
+
+    .form-group.full {
+
+        grid-column:
+            1 / -1;
+    }
+
+
+    .form-label {
+
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #334155;
+
+        font-size: 12px;
+
+        font-weight: 750;
+    }
+
+
+    .optional {
+
+        color: #94a3b8;
+
+        font-weight: 600;
+
+        font-size: 10px;
+
+        margin-left: 4px;
+    }
+
+
+    .form-control {
+
+        width: 100%;
+
+        min-height: 44px;
+
+        padding:
+            10px 12px;
+
+        border:
+            1px solid #dbe1ea;
+
+        border-radius: 10px;
+
+        outline: none;
+
+        background: white;
+
+        color: #172033;
+
+        font-family: inherit;
+
+        font-size: 13px;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+
+
+    .form-control:hover {
+
+        border-color: #cbd5e1;
+    }
+
+
+    .form-control:focus {
+
+        border-color: #2563eb;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(37,99,235,0.10);
+
+        background: #fcfdff;
+    }
+
+
+    select.form-control {
+
+        cursor: pointer;
+
+        appearance: auto;
+    }
+
+
+    textarea.form-control {
+
+        min-height: 105px;
+
+        resize: vertical;
+
+        line-height: 1.6;
+    }
+
+
+    .form-help {
+
+        margin-top: 5px;
+
+        font-size: 10px;
+
+        color: #94a3b8;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       OPTIONAL SOCIAL CARDS
+    ===================================================== */
+
+    .optional-box {
+
+        background:
+            linear-gradient(
+                135deg,
+                #f8fafc,
+                #f1f5f9
+            );
+
+        border:
+            1px solid #e2e8f0;
+
+        border-radius: 13px;
+
+        padding: 15px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .optional-box-title {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        color: #334155;
+
+        margin-bottom: 5px;
+    }
+
+
+    .optional-box-description {
+
+        color: #64748b;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+
+        margin-bottom: 14px;
+    }
+
+
+    /* =====================================================
+       SAVE BUTTON
+    ===================================================== */
+
+    .form-actions {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-end;
+
+        gap: 10px;
+
+        padding-top: 20px;
+
+        margin-top: 8px;
+
+        border-top:
+            1px solid #eef2f7;
+    }
+
+
+    .save-button {
+
+        border: none;
+
+        min-height: 46px;
+
+        padding:
+            0 24px;
+
+        border-radius: 11px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+        color: white;
+
+        font-family: inherit;
+
+        font-size: 13px;
+
+        font-weight: 800;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 8px 20px
+            rgba(37,99,235,0.20);
+
+        transition: 0.2s ease;
+    }
+
+
+    .save-button:hover {
+
+        transform:
+            translateY(-1px);
+
+        box-shadow:
+            0 11px 24px
+            rgba(37,99,235,0.28);
+    }
+
+
+    .cancel-button {
+
+        min-height: 46px;
+
+        padding:
+            0 20px;
+
+        border-radius: 11px;
+
+        border:
+            1px solid #dbe1ea;
+
+        background: white;
+
+        color: #475569;
+
+        text-decoration: none;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 13px;
+
+        font-weight: 750;
+    }
+
+
+    .cancel-button:hover {
+
+        background: #f8fafc;
+    }
+
+
+    /* =====================================================
+       CURRENT PROFILE VIEW
+    ===================================================== */
+
+    .info-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 13px;
+    }
+
+
+    .info-box {
+
+        padding: 14px;
+
+        background: #f8fafc;
+
+        border:
+            1px solid #eef2f7;
+
+        border-radius: 12px;
+
+        min-width: 0;
+    }
+
+
+    .info-box.full {
+
+        grid-column:
+            1 / -1;
+    }
+
+
+    .info-label {
+
+        font-size: 10px;
+
+        color: #94a3b8;
+
+        font-weight: 750;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.7px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .info-value {
+
+        font-size: 13px;
+
+        color: #1e293b;
+
+        font-weight: 650;
+
+        word-break: break-word;
+
+        line-height: 1.5;
+    }
+
+
+    .info-value.empty {
+
+        color: #94a3b8;
+
+        font-weight: 500;
+    }
+
+
+    /* =====================================================
+       TAGS
+    ===================================================== */
+
+    .tag-container {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 7px;
+    }
+
+
+    .tag {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        min-height: 28px;
+
+        padding:
+            0 10px;
+
+        border-radius: 999px;
+
+        background: #eff6ff;
+
+        color: #1d4ed8;
+
+        font-size: 10px;
+
+        font-weight: 750;
+
+        border:
+            1px solid #dbeafe;
+    }
+
+
+    /* =====================================================
+       SOCIAL LINKS
+    ===================================================== */
+
+    .social-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+
+    .social-link {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        min-width: 0;
+
+        padding:
+            12px;
+
+        border-radius: 11px;
+
+        background: #f8fafc;
+
+        border:
+            1px solid #eef2f7;
+
+        color: #334155;
+
+        text-decoration: none;
+
+        font-size: 11px;
+
+        font-weight: 750;
+    }
+
+
+    .social-link:hover {
+
+        background: #eff6ff;
+
+        color: #1d4ed8;
+
+        border-color: #dbeafe;
+    }
+
+
+    .social-icon {
+
+        width: 30px;
+
+        height: 30px;
+
+        border-radius: 8px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: white;
+
+        border:
+            1px solid #e2e8f0;
+
+        flex-shrink: 0;
+    }
+
+
+    .social-text {
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       EDIT BUTTON
+    ===================================================== */
+
+    .edit-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        min-height: 44px;
+
+        padding:
+            0 19px;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+        color: white;
+
+        text-decoration: none;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        box-shadow:
+            0 7px 17px
+            rgba(37,99,235,0.18);
+    }
+
+
+    .edit-button:hover {
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1100px) {
+
+        .profile-grid {
+
+            grid-template-columns:
+                250px minmax(0, 1fr);
+        }
+
+        .hero-badge {
+
+            display: none;
+        }
+    }
+
+
+    @media (max-width: 900px) {
+
+        .profile-page {
+
+            padding:
+                20px 18px 35px;
+        }
+
+        .profile-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+        .photo-card {
+
+            position: static;
+        }
+    }
+
+
+    @media (max-width: 650px) {
+
+        .profile-page {
+
+            padding:
+                15px 12px 30px;
+        }
+
+        .profile-hero {
+
+            padding:
+                24px 20px;
+
+            min-height: auto;
+        }
+
+        .hero-title {
+
+            font-size: 24px;
+        }
+
+        .profile-card {
+
+            padding: 18px;
+        }
+
+        .form-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+        .form-group.full {
+
+            grid-column:
+                auto;
+        }
+
+        .info-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+        .info-box.full {
+
+            grid-column:
+                auto;
+        }
+
+        .social-grid {
+
+            grid-template-columns:
+                1fr;
+        }
+
+        .form-actions {
+
+            flex-direction: column-reverse;
+
+            align-items: stretch;
+        }
+
+        .save-button,
+        .cancel-button {
+
+            width: 100%;
+        }
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="profile-page">
+
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
+
+    <section class="profile-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                PERSONAL PROFILE
+            </div>
+
+            <div class="hero-title">
+                Build Your Professional Identity
+            </div>
+
+            <div class="hero-description">
+
+                Keep your career information organized in one
+                place. Add your skills, education, experience
+                and career interests to make your AI Career
+                Path experience more personalized.
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-badge">
+
+            <div class="hero-badge-icon">
+                ✦
+            </div>
+
+            <div class="hero-badge-text">
+                Career<br>
+                Profile
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         PROFILE GRID
+    ================================================= -->
+
+    <div class="profile-grid">
+
+
+        <!-- =================================================
+             LEFT CARD
+        ================================================= -->
+
+        <aside class="profile-card photo-card">
+
+
+            {% if user.get('profile_image')
+                  and user.get('profile_image') != 'logo.jpg' %}
+
+                <div class="profile-photo">
+
+                    <img
+                        src="{{ url_for(
+                            'profile_image',
+                            filename=user['profile_image']
+                        ) }}"
+                        alt="Profile Photo"
+                    >
+
+                </div>
+
+            {% else %}
+
+                <div class="profile-photo">
+
+                    {{ user.get('name', 'U')[0]|upper }}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="profile-name">
+
+                {{ user.get('name', 'User') }}
+
+            </div>
+
+
+            <div class="profile-email">
+
+                {{ user.get('email', '') }}
+
+            </div>
+
+
+            {% if request.args.get('edit') != '1' %}
+
+                <a
+                    href="{{ url_for('profile', edit=1) }}"
+                    class="edit-button"
+                >
+                    ✎ &nbsp; Edit Profile
+                </a>
+
+            {% endif %}
+
+
+            <div class="mini-info">
+
+
+                <div class="mini-info-row">
+
+                    <span>
+                        Education
+                    </span>
+
+                    <span>
+                        {{ user.get('education') or 'Not added' }}
+                    </span>
+
+                </div>
+
+
+                <div class="mini-info-row">
+
+                    <span>
+                        Experience
+                    </span>
+
+                    <span>
+                        {{ user.get('experience') or 'Not added' }}
+                    </span>
+
+                </div>
+
+
+                <div class="mini-info-row">
+
+                    <span>
+                        Location
+                    </span>
+
+                    <span>
+                        {{ user.get('location') or 'Not added' }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================= -->
+
+        <div>
+
+
+            {% if request.args.get('edit') == '1' %}
+
+
+                <!-- =========================================
+                     EDIT PROFILE
+                ========================================= -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('profile') }}"
+                    enctype="multipart/form-data"
+                    class="profile-card"
+                >
+
+
+                    <!-- PERSONAL INFORMATION -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>01</span>
+
+                            Personal Information
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="name"
+                                    class="form-control"
+                                    value="{{ user.get('name', '') }}"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    class="form-control"
+                                    value="{{ user.get('email', '') }}"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Phone
+                                    <span class="optional">
+                                        Optional
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    class="form-control"
+                                    value="{{ user.get('phone', '') }}"
+                                    placeholder="Enter phone number"
+                                >
+
+                            </div>
+
+
+                            <!-- LOCATION DROPDOWN -->
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Location
+                                </label>
+
+                                <select
+                                    name="location"
+                                    class="form-control"
+                                >
+
+                                    <option value="">
+                                        Select your location
+                                    </option>
+
+                                    <option
+                                        value="Pune"
+                                        {% if user.get('location') == 'Pune' %}selected{% endif %}
+                                    >
+                                        Pune
+                                    </option>
+
+                                    <option
+                                        value="Mumbai"
+                                        {% if user.get('location') == 'Mumbai' %}selected{% endif %}
+                                    >
+                                        Mumbai
+                                    </option>
+
+                                    <option
+                                        value="Nagpur"
+                                        {% if user.get('location') == 'Nagpur' %}selected{% endif %}
+                                    >
+                                        Nagpur
+                                    </option>
+
+                                    <option
+                                        value="Nashik"
+                                        {% if user.get('location') == 'Nashik' %}selected{% endif %}
+                                    >
+                                        Nashik
+                                    </option>
+
+                                    <option
+                                        value="Aurangabad"
+                                        {% if user.get('location') == 'Aurangabad' %}selected{% endif %}
+                                    >
+                                        Aurangabad
+                                    </option>
+
+                                    <option
+                                        value="Kolhapur"
+                                        {% if user.get('location') == 'Kolhapur' %}selected{% endif %}
+                                    >
+                                        Kolhapur
+                                    </option>
+
+                                    <option
+                                        value="Bengaluru"
+                                        {% if user.get('location') == 'Bengaluru' %}selected{% endif %}
+                                    >
+                                        Bengaluru
+                                    </option>
+
+                                    <option
+                                        value="Hyderabad"
+                                        {% if user.get('location') == 'Hyderabad' %}selected{% endif %}
+                                    >
+                                        Hyderabad
+                                    </option>
+
+                                    <option
+                                        value="Delhi"
+                                        {% if user.get('location') == 'Delhi' %}selected{% endif %}
+                                    >
+                                        Delhi
+                                    </option>
+
+                                    <option
+                                        value="Noida"
+                                        {% if user.get('location') == 'Noida' %}selected{% endif %}
+                                    >
+                                        Noida
+                                    </option>
+
+                                    <option
+                                        value="Gurugram"
+                                        {% if user.get('location') == 'Gurugram' %}selected{% endif %}
+                                    >
+                                        Gurugram
+                                    </option>
+
+                                    <option
+                                        value="Chennai"
+                                        {% if user.get('location') == 'Chennai' %}selected{% endif %}
+                                    >
+                                        Chennai
+                                    </option>
+
+                                    <option
+                                        value="Other"
+                                        {% if user.get('location') == 'Other' %}selected{% endif %}
+                                    >
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EDUCATION AND EXPERIENCE -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>02</span>
+
+                            Education & Experience
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Highest Education
+                                </label>
+
+                                <select
+                                    name="education"
+                                    class="form-control"
+                                >
+
+                                    <option value="">
+                                        Select education
+                                    </option>
+
+                                    <option
+                                        value="BSc IT"
+                                        {% if user.get('education') == 'BSc IT' %}selected{% endif %}
+                                    >
+                                        BSc IT
+                                    </option>
+
+                                    <option
+                                        value="BCA"
+                                        {% if user.get('education') == 'BCA' %}selected{% endif %}
+                                    >
+                                        BCA
+                                    </option>
+
+                                    <option
+                                        value="BTech"
+                                        {% if user.get('education') == 'BTech' %}selected{% endif %}
+                                    >
+                                        BTech
+                                    </option>
+
+                                    <option
+                                        value="BE"
+                                        {% if user.get('education') == 'BE' %}selected{% endif %}
+                                    >
+                                        BE
+                                    </option>
+
+                                    <option
+                                        value="MCA"
+                                        {% if user.get('education') == 'MCA' %}selected{% endif %}
+                                    >
+                                        MCA
+                                    </option>
+
+                                    <option
+                                        value="MSc"
+                                        {% if user.get('education') == 'MSc' %}selected{% endif %}
+                                    >
+                                        MSc
+                                    </option>
+
+                                    <option
+                                        value="MBA"
+                                        {% if user.get('education') == 'MBA' %}selected{% endif %}
+                                    >
+                                        MBA
+                                    </option>
+
+                                    <option
+                                        value="Other"
+                                        {% if user.get('education') == 'Other' %}selected{% endif %}
+                                    >
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- EXPERIENCE DROPDOWN -->
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Experience
+                                </label>
+
+                                <select
+                                    name="experience"
+                                    class="form-control"
+                                >
+
+                                    <option value="">
+                                        Select experience
+                                    </option>
+
+                                    <option
+                                        value="Fresher"
+                                        {% if user.get('experience') == 'Fresher' %}selected{% endif %}
+                                    >
+                                        Fresher
+                                    </option>
+
+                                    <option
+                                        value="Less than 1 Year"
+                                        {% if user.get('experience') == 'Less than 1 Year' %}selected{% endif %}
+                                    >
+                                        Less than 1 Year
+                                    </option>
+
+                                    <option
+                                        value="1 - 2 Years"
+                                        {% if user.get('experience') == '1 - 2 Years' %}selected{% endif %}
+                                    >
+                                        1 - 2 Years
+                                    </option>
+
+                                    <option
+                                        value="2 - 3 Years"
+                                        {% if user.get('experience') == '2 - 3 Years' %}selected{% endif %}
+                                    >
+                                        2 - 3 Years
+                                    </option>
+
+                                    <option
+                                        value="3 - 5 Years"
+                                        {% if user.get('experience') == '3 - 5 Years' %}selected{% endif %}
+                                    >
+                                        3 - 5 Years
+                                    </option>
+
+                                    <option
+                                        value="5+ Years"
+                                        {% if user.get('experience') == '5+ Years' %}selected{% endif %}
+                                    >
+                                        5+ Years
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SKILLS -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>03</span>
+
+                            Skills & Interests
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Skills
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="skills"
+                                    class="form-control"
+                                    value="{{ user.get('skills', '') }}"
+                                    placeholder="Python, SQL, Machine Learning"
+                                >
+
+                                <div class="form-help">
+                                    Separate multiple skills with commas.
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Career Interests
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="interests"
+                                    class="form-control"
+                                    value="{{ user.get('interests', '') }}"
+                                    placeholder="Data Science, AI, Software Development"
+                                >
+
+                                <div class="form-help">
+                                    Add the career areas you are interested in.
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ABOUT ME -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>04</span>
+
+                            About Me
+
+                            <span class="optional">
+                                Optional
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <textarea
+                                name="bio"
+                                class="form-control"
+                                placeholder="Tell recruiters a little about yourself, your goals, interests or strengths..."
+                            >{{ user.get('bio', '') }}</textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SOCIAL -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>05</span>
+
+                            Professional Links
+
+                            <span class="optional">
+                                Optional
+                            </span>
+
+                        </div>
+
+
+                        <div class="optional-box">
+
+                            <div class="optional-box-title">
+
+                                🔗 Professional Profiles
+
+                            </div>
+
+
+                            <div class="optional-box-description">
+
+                                LinkedIn and GitHub are completely
+                                optional. You can leave both fields
+                                empty and still save your profile.
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        LinkedIn
+                                        <span class="optional">
+                                            Optional
+                                        </span>
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        name="linkedin"
+                                        class="form-control"
+                                        value="{{ user.get('linkedin', '') }}"
+                                        placeholder="https://linkedin.com/in/yourname"
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+                                        GitHub
+                                        <span class="optional">
+                                            Optional
+                                        </span>
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        name="github"
+                                        class="form-control"
+                                        value="{{ user.get('github', '') }}"
+                                        placeholder="https://github.com/yourname"
+                                    >
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PHOTO -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span>06</span>
+
+                            Profile Photo
+
+                            <span class="optional">
+                                Optional
+                            </span>
+
+                        </div>
+
+
+                        <label class="photo-upload">
+
+                            📷 &nbsp;
+                            Choose a new profile photo
+
+                            <input
+                                type="file"
+                                name="profile_image"
+                                accept=".jpg,.jpeg,.png,.gif,.webp"
+                            >
+
+                        </label>
+
+
+                        <div class="photo-note">
+
+                            Recommended: square JPG or PNG image.
+                            Maximum size: 5 MB.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="{{ url_for('profile') }}"
+                            class="cancel-button"
+                        >
+                            Cancel
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                        >
+                            ✓ &nbsp; Save Profile
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            {% else %}
+
+
+                <!-- =========================================
+                     PROFILE VIEW
+                ========================================= -->
+
+                <div class="profile-card">
+
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            ◉
+                        </div>
+
+                        Profile Overview
+
+                    </div>
+
+
+                    <div class="card-description">
+
+                        Your saved professional information.
+
+                    </div>
+
+
+                    <div class="info-grid">
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Full Name
+                            </div>
+
+                            <div class="info-value">
+
+                                {{ user.get('name', '') }}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Email
+                            </div>
+
+                            <div class="info-value">
+
+                                {{ user.get('email', '') }}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Phone
+                            </div>
+
+                            <div class="info-value
+                                {% if not user.get('phone') %}
+                                    empty
+                                {% endif %}"
+                            >
+
+                                {% if user.get('phone') %}
+                                    {{ user.get('phone') }}
+                                {% else %}
+                                    Not added
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Location
+                            </div>
+
+                            <div class="info-value
+                                {% if not user.get('location') %}
+                                    empty
+                                {% endif %}"
+                            >
+
+                                {% if user.get('location') %}
+                                    {{ user.get('location') }}
+                                {% else %}
+                                    Not added
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Education
+                            </div>
+
+                            <div class="info-value
+                                {% if not user.get('education') %}
+                                    empty
+                                {% endif %}"
+                            >
+
+                                {% if user.get('education') %}
+                                    {{ user.get('education') }}
+                                {% else %}
+                                    Not added
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                Experience
+                            </div>
+
+                            <div class="info-value
+                                {% if not user.get('experience') %}
+                                    empty
+                                {% endif %}"
+                            >
+
+                                {% if user.get('experience') %}
+                                    {{ user.get('experience') }}
+                                {% else %}
+                                    Not added
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SKILLS -->
+
+                        <div class="info-box full">
+
+                            <div class="info-label">
+                                Skills
+                            </div>
+
+
+                            {% if user.get('skills') %}
+
+                                <div class="tag-container">
+
+                                    {% for skill in user.get('skills', '').split(',') %}
+
+                                        {% if skill.strip() %}
+
+                                            <span class="tag">
+                                                {{ skill.strip() }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="info-value empty">
+                                    No skills added
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- INTERESTS -->
+
+                        <div class="info-box full">
+
+                            <div class="info-label">
+                                Career Interests
+                            </div>
+
+
+                            {% if user.get('interests') %}
+
+                                <div class="tag-container">
+
+                                    {% for interest in user.get('interests', '').split(',') %}
+
+                                        {% if interest.strip() %}
+
+                                            <span class="tag">
+                                                {{ interest.strip() }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="info-value empty">
+                                    No interests added
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- ABOUT ME -->
+
+                        <div class="info-box full">
+
+                            <div class="info-label">
+                                About Me
+                            </div>
+
+                            <div class="info-value
+                                {% if not user.get('bio') %}
+                                    empty
+                                {% endif %}"
+                            >
+
+                                {% if user.get('bio') %}
+
+                                    {{ user.get('bio') }}
+
+                                {% else %}
+
+                                    About Me not added
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- SOCIAL LINKS -->
+
+                    {% if user.get('linkedin') or user.get('github') %}
+
+                        <div style="margin-top:24px;">
+
+                            <div class="section-heading">
+
+                                <span>↗</span>
+
+                                Professional Links
+
+                            </div>
+
+
+                            <div class="social-grid">
+
+
+                                {% if user.get('linkedin') %}
+
+                                    <a
+                                        href="{{ user.get('linkedin') }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="social-link"
+                                    >
+
+                                        <span class="social-icon">
+                                            in
+                                        </span>
+
+                                        <span class="social-text">
+                                            LinkedIn Profile
+                                        </span>
+
+                                    </a>
+
+                                {% endif %}
+
+
+                                {% if user.get('github') %}
+
+                                    <a
+                                        href="{{ user.get('github') }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="social-link"
+                                    >
+
+                                        <span class="social-icon">
+                                            &lt;/&gt;
+                                        </span>
+
+                                        <span class="social-text">
+                                            GitHub Profile
+                                        </span>
+
+                                    </a>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- EDIT -->
+
+                    <div
+                        style="
+                            margin-top:24px;
+                            padding-top:20px;
+                            border-top:1px solid #eef2f7;
+                        "
+                    >
+
+                        <a
+                            href="{{ url_for('profile', edit=1) }}"
+                            class="edit-button"
+                        >
+                            ✎ &nbsp; Edit My Profile
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

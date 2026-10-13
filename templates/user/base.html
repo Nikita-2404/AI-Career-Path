@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}AI Career Path{% endblock %}
+    </title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                #f5f7fb;
+
+            color: #172033;
+        }
+
+
+        /* ==================================================
+           SIDEBAR
+        ================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 245px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #111827 0%,
+                    #172033 50%,
+                    #0f172a 100%
+                );
+
+            color: white;
+
+            z-index: 1000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            overflow-y: auto;
+
+            box-shadow:
+                5px 0 25px rgba(15, 23, 42, 0.12);
+        }
+
+
+        /* LOGO */
+
+        .sidebar-logo {
+
+            height: 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 0 22px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+        }
+
+        .sidebar-logo img {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            object-fit: cover;
+
+            background: white;
+        }
+
+        .sidebar-logo-text {
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.3px;
+        }
+
+        .sidebar-logo-text span {
+
+            display: block;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            color: #94a3b8;
+
+            margin-top: 3px;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* NAVIGATION */
+
+        .sidebar-nav {
+
+            padding: 22px 14px;
+
+            flex: 1;
+        }
+
+        .nav-label {
+
+            padding:
+                0 12px
+                10px;
+
+            color: #64748b;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            width: 100%;
+
+            min-height: 48px;
+
+            padding:
+                0 13px;
+
+            margin-bottom: 7px;
+
+            color: #cbd5e1;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                0.2s ease;
+        }
+
+        .nav-link:hover {
+
+            background:
+                rgba(255,255,255,0.07);
+
+            color: white;
+
+            transform: translateX(2px);
+        }
+
+        .nav-link.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            box-shadow:
+                0 8px 20px
+                rgba(37,99,235,0.25);
+        }
+
+        .nav-icon {
+
+            width: 28px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+
+        /* SIDEBAR BOTTOM */
+
+        .sidebar-bottom {
+
+            padding: 16px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
+        }
+
+        .logout-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-height: 46px;
+
+            padding: 0 13px;
+
+            border-radius: 11px;
+
+            color: #fca5a5;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .logout-link:hover {
+
+            background:
+                rgba(239,68,68,0.12);
+
+            color: #fecaca;
+        }
+
+
+        /* ==================================================
+           MAIN AREA
+        ================================================== */
+
+        .main-wrapper {
+
+            margin-left: 245px;
+
+            width:
+                calc(100% - 245px);
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        /* TOP BAR */
+
+        .topbar {
+
+            height: 72px;
+
+            width: 100%;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 28px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 900;
+        }
+
+        .topbar-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .page-title {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+
+        /* TOP RIGHT PROFILE */
+
+        .dashboard-profile-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            text-decoration: none;
+
+            color: #111827;
+
+            padding:
+                6px 9px;
+
+            border-radius: 12px;
+
+            transition: 0.2s ease;
+        }
+
+        .dashboard-profile-link:hover {
+
+            background: #f1f5f9;
+        }
+
+        .dashboard-profile-avatar {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-weight: 800;
+
+            font-size: 15px;
+
+            border:
+                2px solid #e2e8f0;
+        }
+
+        .dashboard-profile-avatar img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .dashboard-profile-name {
+
+            display: flex;
+
+            flex-direction: column;
+
+            line-height: 1.25;
+        }
+
+        .dashboard-profile-name strong {
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+        .dashboard-profile-name span {
+
+            font-size: 11px;
+
+            color: #64748b;
+
+            margin-top: 2px;
+        }
+
+
+        /* ==================================================
+           CONTENT
+        ================================================== */
+
+        .content-area {
+
+            width: 100%;
+
+            flex: 1;
+
+            padding: 0;
+
+            min-width: 0;
+        }
+
+
+        /* ==================================================
+           FLASH MESSAGES
+        ================================================== */
+
+        .flash-container {
+
+            padding:
+                18px 28px 0;
+        }
+
+        .flash-message {
+
+            padding:
+                12px 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            border: 1px solid transparent;
+        }
+
+        .flash-success {
+
+            background: #ecfdf5;
+
+            color: #047857;
+
+            border-color: #a7f3d0;
+        }
+
+        .flash-danger {
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            border-color: #fecaca;
+        }
+
+        .flash-warning {
+
+            background: #fffbeb;
+
+            color: #b45309;
+
+            border-color: #fde68a;
+        }
+
+        .flash-info {
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+            border-color: #bfdbfe;
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        .mobile-menu-button {
+
+            display: none;
+
+            border: none;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                transform:
+                    translateX(-100%);
+
+                transition:
+                    transform 0.25s ease;
+            }
+
+            .sidebar.mobile-open {
+
+                transform:
+                    translateX(0);
+            }
+
+            .main-wrapper {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+            .mobile-menu-button {
+
+                display: block;
+            }
+
+            .topbar {
+
+                padding:
+                    0 16px;
+            }
+
+            .dashboard-profile-name {
+
+                display: none;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page-title {
+
+                font-size: 17px;
+            }
+
+            .dashboard-profile-avatar {
+
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="{{ url_for('static', filename='css/images/logo.jpg') }}"
+                alt="AI Career Path"
+            >
+
+            <div class="sidebar-logo-text">
+
+                AI Career Path
+
+                <span>
+                    Career Intelligence
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-label">
+                Main Menu
+            </div>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('prediction') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    Career Prediction
+                </span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('history') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ◷
+                </span>
+
+                <span>
+                    Prediction History
+                </span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('jobs') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                <span>
+                    Jobs
+                </span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('roadmap') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Career Roadmap
+                </span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('profile') }}"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ==================================================
+         MAIN WRAPPER
+    ================================================== -->
+
+    <main class="main-wrapper">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="mobile-menu-button"
+                    onclick="toggleSidebar()"
+                    type="button"
+                >
+                    ☰
+                </button>
+
+                <h1 class="page-title">
+
+                    {% block page_heading %}
+                        AI Career Path
+                    {% endblock %}
+
+                </h1>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="{{ url_for('profile') }}"
+                class="dashboard-profile-link"
+                title="Open My Profile"
+            >
+
+                <div class="dashboard-profile-avatar">
+
+                    {% if user is defined
+                          and user
+                          and user.get('profile_image')
+                          and user.get('profile_image') != 'logo.jpg' %}
+
+                        <img
+                            src="{{ url_for(
+                                'profile_image',
+                                filename=user['profile_image']
+                            ) }}"
+                            alt="Profile"
+                        >
+
+                    {% else %}
+
+                        {{ session.get('user_name', 'U')[0]|upper }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="dashboard-profile-name">
+
+                    <strong>
+                        {{ session.get('user_name', 'User') }}
+                    </strong>
+
+                    <span>
+                        My Profile
+                    </span>
+
+                </div>
+
+            </a>
+
+        </header>
+
+
+        <!-- FLASH -->
+
+        {% with messages = get_flashed_messages(
+            with_categories=true
+        ) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="flash-message flash-{{ category }}"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- CONTENT -->
+
+        <section class="content-area">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        function toggleSidebar() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+        }
+
+    </script>
+
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

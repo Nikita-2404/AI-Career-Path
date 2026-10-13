@@ -1,0 +1,223 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.auth-page {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(239,246,255,.88),
+            rgba(255,255,255,.90)
+        ),
+        url("../images/ai-career-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+.auth-container {
+    width: min(1100px, 95%);
+    min-height: 650px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns: 48% 52%;
+
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.20);
+}
+
+
+/* LEFT IMAGE */
+
+.auth-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.auth-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(15,23,42,.85)
+        );
+}
+
+.image-text {
+    position: absolute;
+    bottom: 50px;
+    left: 40px;
+    right: 40px;
+
+    color: white;
+    z-index: 2;
+}
+
+.image-text h1 {
+    font-size: 38px;
+}
+
+.image-text p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+
+/* FORM */
+
+.auth-box {
+    padding: 55px 60px;
+}
+
+.logo-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-small img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.auth-box > h1 {
+    margin-top: 35px;
+    color: #172554;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+
+.auth-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 15px 0 7px;
+}
+
+
+.auth-box input,
+.auth-box select {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.auth-box input:focus,
+.auth-box select:focus {
+    border-color: #2563eb;
+}
+
+
+.auth-box button {
+    width: 100%;
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #64748b;
+}
+
+.bottom-text a {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+
+.message {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+@media(max-width:800px) {
+
+    .auth-container {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-image {
+        height: 250px;
+    }
+
+    .auth-box {
+        padding: 35px;
+    }
+
+}

@@ -1,0 +1,1110 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Jobs Management
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+.admin-jobs-page {
+    width: 100%;
+    padding: 30px;
+    background: #f5f7fb;
+    min-height: calc(100vh - 80px);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.jobs-hero {
+    background: linear-gradient(135deg, #071b3a, #174d82);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(15, 39, 71, 0.12);
+}
+
+.hero-label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #c9d9eb;
+    margin-bottom: 8px;
+}
+
+.jobs-hero h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    font-weight: 750;
+}
+
+.jobs-hero p {
+    margin: 0;
+    color: #dbe8f5;
+    font-size: 14px;
+}
+
+
+/* =========================
+   ADD JOB SECTION
+========================= */
+
+.add-job-section {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 20px rgba(15, 39, 71, 0.05);
+}
+
+.add-job-section h2 {
+    margin: 0 0 5px;
+    color: #0b2d57;
+    font-size: 22px;
+}
+
+.add-job-section p {
+    margin: 0 0 20px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.job-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d8e1ec;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #0f172a;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #174d82;
+    background: white;
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.add-job-btn {
+    grid-column: 1 / -1;
+    border: none;
+    background: #0b2d57;
+    color: white;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.add-job-btn:hover {
+    background: #174d82;
+}
+
+
+/* =========================
+   JOB LIST SECTION
+========================= */
+
+.jobs-section {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(15, 39, 71, 0.05);
+}
+
+.section-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    margin: 0 0 6px;
+    color: #0b2d57;
+    font-size: 22px;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.search-box {
+    width: 300px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid #d8e1ec;
+    border-radius: 11px;
+    background: #f8fafc;
+    color: #0b2d57;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #174d82;
+    background: white;
+}
+
+
+/* =========================
+   JOB GRID
+========================= */
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+
+/* =========================
+   JOB CARD
+========================= */
+
+.job-card {
+    background: white;
+    border: 1px solid #e1e7ef;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(15, 39, 71, 0.05);
+    transition: 0.25s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 39, 71, 0.11);
+    border-color: #cbd8e8;
+}
+
+
+/* =========================
+   JOB TOP
+========================= */
+
+.job-card-top {
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.company-logo {
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+    border-radius: 13px;
+    background: #edf3fa;
+    border: 1px solid #dfe7f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-letter {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0b2d57;
+}
+
+.job-main {
+    min-width: 0;
+}
+
+.company-name {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.job-title {
+    margin: 0;
+    color: #0f172a;
+    font-size: 19px;
+    line-height: 1.35;
+    font-weight: 750;
+}
+
+
+/* =========================
+   JOB INFORMATION
+========================= */
+
+.job-info {
+    padding: 0 20px 17px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.info-tag {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    padding: 7px 10px;
+    font-size: 12px;
+}
+
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills-section {
+    padding: 0 20px 18px;
+}
+
+.skills-title {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 9px;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.skill {
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid #dce5ef;
+    border-radius: 15px;
+    padding: 6px 9px;
+    font-size: 12px;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.job-description {
+    padding: 0 20px 18px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.job-description p {
+    margin: 0;
+}
+
+
+/* =========================
+   ADMIN ACTION
+========================= */
+
+.job-actions {
+    border-top: 1px solid #edf1f5;
+    padding: 15px 20px;
+}
+
+.delete-job-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 15px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.delete-job-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    text-align: center;
+    padding: 70px 20px;
+    color: #64748b;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+    color: #0b2d57;
+    font-size: 20px;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .job-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .jobs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .admin-jobs-page {
+        padding: 15px;
+    }
+
+    .jobs-hero {
+        padding: 22px;
+    }
+
+    .jobs-hero h1 {
+        font-size: 25px;
+    }
+
+    .jobs-section,
+    .add-job-section {
+        padding: 18px;
+    }
+
+}
+
+</style>
+
+
+<div class="admin-jobs-page">
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <div class="jobs-hero">
+
+        <div class="hero-label">
+            ✦ ADMINISTRATION
+        </div>
+
+        <h1>
+            Jobs Management 💼
+        </h1>
+
+        <p>
+            Add and manage job opportunities available to users.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         ADD JOB
+    ========================== -->
+
+    <div class="add-job-section">
+
+        <h2>
+            Add New Job
+        </h2>
+
+        <p>
+            Create a new job opportunity for the AI Career Path users.
+        </p>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('admin_jobs') }}"
+            class="job-form"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Job Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Example: Software Developer"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Company
+                </label>
+
+                <input
+                    type="text"
+                    name="company"
+                    placeholder="Example: Infosys"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Example: Pune"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Job Type
+                </label>
+
+                <input
+                    type="text"
+                    name="job_type"
+                    placeholder="Example: Full Time"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Salary
+                </label>
+
+                <input
+                    type="text"
+                    name="salary"
+                    placeholder="Example: ₹3 - ₹5 LPA"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Experience
+                </label>
+
+                <input
+                    type="text"
+                    name="experience"
+                    placeholder="Example: 0 - 3 Years"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Education
+                </label>
+
+                <input
+                    type="text"
+                    name="education"
+                    placeholder="Example: BSc IT / BCA / MCA"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Application Deadline
+                </label>
+
+                <input
+                    type="date"
+                    name="deadline"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Skills
+                </label>
+
+                <input
+                    type="text"
+                    name="skills"
+                    placeholder="Python, SQL, Java, HTML"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Logo File Name
+                </label>
+
+                <input
+                    type="text"
+                    name="logo"
+                    placeholder="Example: tech.jpg"
+                >
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Job Description
+                </label>
+
+                <textarea
+                    name="description"
+                    placeholder="Enter job description..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Responsibilities
+                </label>
+
+                <textarea
+                    name="responsibilities"
+                    placeholder="Enter job responsibilities..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Benefits
+                </label>
+
+                <textarea
+                    name="benefits"
+                    placeholder="Enter job benefits..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="add-job-btn"
+            >
+                + Add Job
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         JOB LIST
+    ========================== -->
+
+    <div class="jobs-section">
+
+
+        <div class="section-top">
+
+            <div class="section-heading">
+
+                <h2>
+                    Added Jobs
+                </h2>
+
+                <p>
+                    These jobs are currently available in the system.
+                </p>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="jobSearch"
+                    placeholder="Search company, job, location or skill..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        {% if jobs %}
+
+
+        <div
+            class="jobs-grid"
+            id="jobsGrid"
+        >
+
+
+            {% for job in jobs %}
+
+
+            <div
+                class="job-card"
+                data-search="{{ job.get('company','')|lower }}
+                             {{ job.get('title','')|lower }}
+                             {{ job.get('location','')|lower }}
+                             {{ job.get('job_type','')|lower }}
+                             {{ job.get('salary','')|lower }}
+                             {{ job.get('skills','')|lower }}
+                             {{ job.get('description','')|lower }}"
+            >
+
+
+                <!-- COMPANY LOGO -->
+
+                <div class="job-card-top">
+
+
+                    <div class="company-logo">
+
+                        {% if job.get("logo") %}
+
+                            <img
+                                src="{{ url_for('static', filename='css/images/' ~ job['logo']) }}"
+                                alt="{{ job.get('company', 'Company') }}"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+
+                            <span
+                                class="logo-letter"
+                                style="display:none;"
+                            >
+                                {{ job.get("company", "J")[0]|upper }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="logo-letter">
+
+                                {{ job.get("company", "J")[0]|upper }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="job-main">
+
+                        <div class="company-name">
+
+                            {{ job.get("company", "Company") }}
+
+                        </div>
+
+
+                        <h3 class="job-title">
+
+                            {{ job.get("title", "Job Position") }}
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JOB INFORMATION -->
+
+                <div class="job-info">
+
+
+                    {% if job.get("location") %}
+
+                    <span class="info-tag">
+
+                        📍 {{ job.get("location") }}
+
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if job.get("job_type") %}
+
+                    <span class="info-tag">
+
+                        💼 {{ job.get("job_type") }}
+
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if job.get("salary") %}
+
+                    <span class="info-tag">
+
+                        💰 {{ job.get("salary") }}
+
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if job.get("experience") %}
+
+                    <span class="info-tag">
+
+                        🎓 {{ job.get("experience") }}
+
+                    </span>
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <!-- SKILLS -->
+
+                {% if job.get("skills") %}
+
+                <div class="skills-section">
+
+                    <div class="skills-title">
+                        Required Skills
+                    </div>
+
+
+                    <div class="skills">
+
+                        {% for skill in job.get("skills", "").split(",") %}
+
+                            {% if skill.strip() %}
+
+                            <span class="skill">
+
+                                {{ skill.strip() }}
+
+                            </span>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- DESCRIPTION -->
+
+                {% if job.get("description") %}
+
+                <div class="job-description">
+
+                    <p>
+
+                        {{ job.get("description")|truncate(130, True, "...") }}
+
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- ADMIN ACTION -->
+
+                <div class="job-actions">
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('admin_delete_job', job_id=job['id']) }}"
+                        onsubmit="return confirm('Are you sure you want to delete this job?');"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-job-btn"
+                        >
+                            🗑 Delete Job
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- SEARCH EMPTY -->
+
+        <div
+            id="noSearchResult"
+            class="empty-state"
+            style="display:none;"
+        >
+
+            <div class="empty-icon">
+                🔍
+            </div>
+
+            <h3>
+                No Jobs Found
+            </h3>
+
+            <p>
+                No job matches your search.
+            </p>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- NO JOBS -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                💼
+            </div>
+
+            <h3>
+                No Jobs Available
+            </h3>
+
+            <p>
+                There are currently no jobs available in the system.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const input = document.getElementById("jobSearch");
+
+    const cards = document.querySelectorAll(".job-card");
+
+    const noResult = document.getElementById("noSearchResult");
+
+
+    if (!input) {
+        return;
+    }
+
+
+    input.addEventListener("input", function () {
+
+        const searchText =
+            this.value.toLowerCase().trim();
+
+        let visibleCount = 0;
+
+
+        cards.forEach(function (card) {
+
+            const searchableText =
+                (card.getAttribute("data-search") || "")
+                .toLowerCase();
+
+
+            if (searchableText.includes(searchText)) {
+
+                card.style.display = "";
+
+                visibleCount++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        if (noResult) {
+
+            if (
+                visibleCount === 0 &&
+                cards.length > 0
+            ) {
+
+                noResult.style.display = "block";
+
+            } else {
+
+                noResult.style.display = "none";
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

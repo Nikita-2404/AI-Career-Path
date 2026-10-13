@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | AI Career Path</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #eef2ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 15px;
+        }
+
+        /* =========================
+           MAIN BOX
+        ========================= */
+
+        .login-wrapper {
+
+            width: 100%;
+
+            max-width: 1000px;
+
+            min-height: 570px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            display: grid;
+
+            grid-template-columns:
+                1.05fr 0.95fr;
+
+            box-shadow:
+                0 20px 55px
+                rgba(15, 23, 42, 0.18);
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .left-section {
+
+            position: relative;
+
+            min-height: 570px;
+
+            overflow: hidden;
+
+            background: #0b2b68;
+        }
+
+        .left-section img {
+
+            position: absolute;
+
+            width: 100%;
+
+            height: 100%;
+
+            inset: 0;
+
+            object-fit: cover;
+
+            object-position: center;
+        }
+
+        .left-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(5, 31, 78, 0.82),
+                    rgba(18, 65, 140, 0.55)
+                );
+        }
+
+        .left-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            height: 100%;
+
+            min-height: 570px;
+
+            padding: 38px 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            color: white;
+        }
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .brand-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.30);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+        .brand-name {
+
+            font-size: 23px;
+
+            font-weight: 700;
+        }
+
+        /* =========================
+           LEFT TEXT
+        ========================= */
+
+        .left-middle {
+
+            max-width: 500px;
+        }
+
+        .small-title {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            color: #dce9ff;
+
+            margin-bottom: 18px;
+        }
+
+        .left-middle h1 {
+
+            font-size: 47px;
+
+            line-height: 1.08;
+
+            margin-bottom: 18px;
+
+            letter-spacing: -1.5px;
+        }
+
+        .left-middle h1 span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #8bb5ff,
+                    #c8a5ff
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+        .left-description {
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            color: #f2f6ff;
+        }
+
+        .feature-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 22px;
+        }
+
+        .feature {
+
+            padding: 9px 13px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.18);
+
+            font-size: 11px;
+        }
+
+        .left-bottom {
+
+            font-size: 11px;
+
+            color: #dce7ff;
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .right-section {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 35px 45px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #fafbff
+                );
+        }
+
+        .login-form-container {
+
+            width: 100%;
+
+            max-width: 360px;
+        }
+
+        /* =========================
+           ADMIN BRAND
+        ========================= */
+
+        .admin-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 28px;
+        }
+
+        .admin-logo {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #6338e8
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 18px
+                rgba(37,99,235,0.25);
+        }
+
+        .admin-brand-text h2 {
+
+            font-size: 20px;
+
+            color: #111827;
+
+            margin-bottom: 3px;
+        }
+
+        .admin-brand-text p {
+
+            font-size: 9px;
+
+            color: #718096;
+
+            letter-spacing: 0.8px;
+        }
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        .login-heading {
+
+            margin-bottom: 24px;
+        }
+
+        .login-heading h1 {
+
+            font-size: 35px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+        .login-heading p {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .admin-badge {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            background: #eef4ff;
+
+            color: #2563eb;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .flash-container {
+
+            margin-bottom: 15px;
+        }
+
+        .alert {
+
+            padding: 10px 12px;
+
+            border-radius: 8px;
+
+            margin-bottom: 7px;
+
+            font-size: 11px;
+        }
+
+        .alert-success {
+
+            background: #eaf8ef;
+
+            color: #18864b;
+        }
+
+        .alert-danger {
+
+            background: #fff0f0;
+
+            color: #c62828;
+        }
+
+        .alert-warning {
+
+            background: #fff8e7;
+
+            color: #946200;
+        }
+
+        .alert-info {
+
+            background: #eef6ff;
+
+            color: #1d5fa7;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+        .input-wrapper,
+        .password-wrapper {
+
+            position: relative;
+        }
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 14px;
+
+            pointer-events: none;
+        }
+
+        .form-control {
+
+            width: 100%;
+
+            height: 52px;
+
+            border:
+                1px solid #d6deea;
+
+            border-radius: 11px;
+
+            background: #f8fafc;
+
+            padding:
+                0 15px 0 42px;
+
+            color: #172033;
+
+            font-size: 13px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        .form-control:focus {
+
+            border-color: #3569ef;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(53,105,239,0.10);
+        }
+
+        .password-wrapper
+        .form-control {
+
+            padding-right: 45px;
+        }
+
+        .show-password {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            color: #718096;
+        }
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-btn {
+
+            width: 100%;
+
+            height: 54px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #6338e8
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 4px;
+
+            box-shadow:
+                0 10px 22px
+                rgba(67,70,230,0.25);
+
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+
+            transform:
+                translateY(-2px);
+        }
+
+        /* =========================
+           BOTTOM
+        ========================= */
+
+        .security-note {
+
+            text-align: center;
+
+            margin-top: 19px;
+
+            color: #718096;
+
+            font-size: 10px;
+        }
+
+        .back-login {
+
+            text-align: center;
+
+            margin-top: 18px;
+        }
+
+        .back-login a {
+
+            text-decoration: none;
+
+            color: #315be8;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        .back-login a:hover {
+
+            text-decoration: underline;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .login-wrapper {
+
+                grid-template-columns: 1fr;
+
+                max-width: 480px;
+            }
+
+            .left-section {
+
+                display: none;
+            }
+
+            .right-section {
+
+                min-height: 570px;
+
+                padding: 35px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            body {
+
+                padding: 0;
+            }
+
+            .login-wrapper {
+
+                min-height: 100vh;
+
+                border-radius: 0;
+            }
+
+            .right-section {
+
+                padding: 30px 22px;
+            }
+
+            .login-heading h1 {
+
+                font-size: 32px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="login-wrapper">
+
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-section">
+
+        <img
+            src="{{ url_for('static', filename='css/images/login.jpg') }}"
+            alt="AI Career Path"
+        >
+
+        <div class="left-overlay"></div>
+
+        <div class="left-content">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ✦
+                </div>
+
+                <div class="brand-name">
+                    AI Career Path
+                </div>
+
+            </div>
+
+
+            <div class="left-middle">
+
+                <div class="small-title">
+                    AI-POWERED CAREER INTELLIGENCE
+                </div>
+
+                <h1>
+                    Manage Your
+                    <span>Future</span>
+                </h1>
+
+                <p class="left-description">
+
+                    Manage users, monitor career predictions,
+                    and keep the AI Career Path platform
+                    running smoothly.
+
+                </p>
+
+                <div class="feature-list">
+
+                    <div class="feature">
+                        ✦ Career Analytics
+                    </div>
+
+                    <div class="feature">
+                        ◈ User Management
+                    </div>
+
+                    <div class="feature">
+                        ◎ Prediction Insights
+                    </div>
+
+                    <div class="feature">
+                        ◆ Admin Dashboard
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="left-bottom">
+
+                Manage • Analyze • Improve • Succeed
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-section">
+
+        <div class="login-form-container">
+
+
+            <div class="admin-brand">
+
+                <div class="admin-logo">
+                    AI
+                </div>
+
+                <div class="admin-brand-text">
+
+                    <h2>
+                        AI Career Path
+                    </h2>
+
+                    <p>
+                        SMART CAREER • BETTER FUTURE
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="login-heading">
+
+                <h1>
+                    Admin Login
+                </h1>
+
+                <p>
+                    Access the administration dashboard
+                    and manage your system.
+                </p>
+
+                <span class="admin-badge">
+                    Administrator Access
+                </span>
+
+            </div>
+
+
+            <!-- FLASH MESSAGE -->
+
+            {% with messages =
+                get_flashed_messages(
+                    with_categories=true
+                )
+            %}
+
+                {% if messages %}
+
+                    <div class="flash-container">
+
+                        {% for category, message in messages %}
+
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                method="POST"
+                action="{{ url_for('admin_login') }}"
+            >
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Admin Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            placeholder="Enter admin username"
+                            required
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="togglePassword"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login as Admin →
+                </button>
+
+            </form>
+
+
+            <div class="security-note">
+                🔐 Administrator information is securely protected.
+            </div>
+
+
+            <div class="back-login">
+
+                <a href="{{ url_for('user_login') }}">
+                    ← Back to User Login
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+        const togglePassword =
+            document.getElementById(
+                "togglePassword"
+            );
+
+        if (
+            passwordInput &&
+            togglePassword
+        ) {
+
+            togglePassword.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        passwordInput.type ===
+                        "password"
+                    ) {
+
+                        passwordInput.type =
+                            "text";
+
+                        togglePassword.textContent =
+                            "🙈";
+
+                    } else {
+
+                        passwordInput.type =
+                            "password";
+
+                        togglePassword.textContent =
+                            "👁";
+                    }
+
+                }
+            );
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

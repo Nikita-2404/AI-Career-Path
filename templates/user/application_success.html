@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Application Submitted</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(37, 99, 235, 0.2),
+                    transparent 40%
+                ),
+                #07111f;
+
+            color: white;
+        }
+
+        .card {
+
+            width: 100%;
+
+            max-width: 620px;
+
+            text-align: center;
+
+            padding: 45px 30px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(15, 23, 42, 0.97);
+
+            border: 1px solid #334155;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.4);
+        }
+
+        .icon {
+
+            width: 85px;
+
+            height: 85px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: auto auto 22px;
+
+            border-radius: 50%;
+
+            font-size: 43px;
+
+            background:
+                rgba(34, 197, 94, 0.12);
+
+            border:
+                2px solid
+                rgba(34, 197, 94, 0.35);
+        }
+
+        h1 {
+
+            margin-bottom: 12px;
+
+            font-size: 31px;
+        }
+
+        .message {
+
+            color: #94a3b8;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+        .job {
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            text-align: left;
+
+            background: #111d31;
+
+            border: 1px solid #334155;
+
+            margin-bottom: 25px;
+        }
+
+        .job-title {
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .company {
+
+            color: #60a5fa;
+
+            margin-bottom: 6px;
+        }
+
+        .location {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+        .status {
+
+            display: inline-block;
+
+            margin-top: 14px;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(34, 197, 94, 0.12);
+
+            color: #86efac;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+
+            text-decoration: none;
+
+            padding: 13px 21px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+        .primary {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+        }
+
+        .secondary {
+
+            color: #cbd5e1;
+
+            background: #1e293b;
+
+            border: 1px solid #334155;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="icon">
+        ✓
+    </div>
+
+
+    {% if already_applied %}
+
+        <h1>
+            Already Applied
+        </h1>
+
+        <p class="message">
+            You have already submitted an application
+            for this job.
+        </p>
+
+    {% else %}
+
+        <h1>
+            Application Submitted!
+        </h1>
+
+        <p class="message">
+            Your application and resume have been
+            successfully submitted.
+        </p>
+
+    {% endif %}
+
+
+    <div class="job">
+
+        <div class="job-title">
+            {{ job['title'] }}
+        </div>
+
+        <div class="company">
+            {{ job['company'] or 'Company' }}
+        </div>
+
+        <div class="location">
+            📍 {{ job['location'] or 'Location not specified' }}
+        </div>
+
+        <span class="status">
+            ✓ Applied
+        </span>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <a
+            href="{{ url_for('jobs') }}"
+            class="btn primary"
+        >
+            💼 Browse Jobs
+        </a>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="btn secondary"
+        >
+            🏠 Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

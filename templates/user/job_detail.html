@@ -1,0 +1,1564 @@
+{% extends "user/base.html" %}
+
+{% block title %}
+Job Details
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.job-detail-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 30px 60px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-job {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+
+    color: #0b2d57;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.back-job:hover {
+    color: #1d5fa7;
+    transform: translateX(-2px);
+}
+
+
+/* =========================================================
+   MAIN JOB CARD
+========================================================= */
+
+.job-main-card {
+    background: #ffffff;
+
+    border: 1px solid #e3e9f1;
+    border-radius: 22px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 12px 35px rgba(15, 35, 70, 0.07);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 25px;
+}
+
+
+.job-header-left {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   COMPANY LOGO
+========================================================= */
+
+.company-logo {
+    width: 85px;
+    height: 85px;
+
+    border-radius: 20px;
+
+    background: #edf3fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+.company-letter {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px;
+    font-weight: 800;
+
+    color: #0b2d57;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.job-title {
+    margin: 0;
+
+    color: #102a43;
+
+    font-size: 31px;
+    line-height: 1.25;
+}
+
+
+.company-name {
+    margin: 8px 0 0;
+
+    color: #66758a;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   APPLY HEADER BUTTON
+========================================================= */
+
+.header-apply-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 23px;
+
+    background: #0b2d57;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+
+.header-apply-btn:hover {
+    background: #164f91;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(11, 45, 87, 0.18);
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.job-divider {
+    border: none;
+
+    border-top: 1px solid #e9edf3;
+
+    margin: 28px 0;
+}
+
+
+/* =========================================================
+   QUICK INFORMATION
+========================================================= */
+
+.job-meta-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+    gap: 14px;
+}
+
+
+.job-meta-card {
+    background: #f7f9fc;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 15px;
+
+    padding: 17px;
+}
+
+
+.job-meta-icon {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+}
+
+
+.job-meta-label {
+    font-size: 12px;
+
+    color: #7a8798;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+}
+
+
+.job-meta-value {
+    margin-top: 6px;
+
+    color: #172b4d;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CONTENT LAYOUT
+========================================================= */
+
+.job-content-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) 310px;
+
+    gap: 28px;
+
+    margin-top: 32px;
+}
+
+
+.job-content {
+    min-width: 0;
+}
+
+
+.job-sidebar {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   DESCRIPTION SECTION
+========================================================= */
+
+.job-section {
+    margin-bottom: 32px;
+}
+
+
+.job-section h2 {
+    margin: 0 0 13px;
+
+    color: #102a43;
+
+    font-size: 22px;
+
+    line-height: 1.3;
+}
+
+
+.job-section p {
+    margin: 0;
+
+    color: #5f6d80;
+
+    font-size: 15px;
+
+    line-height: 1.85;
+
+    white-space: pre-line;
+}
+
+
+/* =========================================================
+   INTRODUCTION BOX
+========================================================= */
+
+.introduction-box {
+    background: #f5f8fc;
+
+    border-left: 4px solid #0b2d57;
+
+    border-radius: 12px;
+
+    padding: 20px 22px;
+
+    margin-bottom: 32px;
+}
+
+
+.introduction-box p {
+    color: #53657a;
+
+    line-height: 1.8;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   RESPONSIBILITIES
+========================================================= */
+
+.responsibility-list {
+    margin: 0;
+
+    padding-left: 22px;
+
+    color: #5f6d80;
+
+    line-height: 1.85;
+}
+
+
+.responsibility-list li {
+    margin-bottom: 9px;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills-container {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 12px;
+}
+
+
+.skill-tag {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    background: #edf3fa;
+
+    color: #0b2d57;
+
+    border: 1px solid #dce7f3;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   QUALIFICATION BOX
+========================================================= */
+
+.qualification-box {
+    background: #fafbfd;
+
+    border: 1px solid #e7ebf1;
+
+    border-radius: 15px;
+
+    padding: 18px 20px;
+}
+
+
+.qualification-box p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.benefit-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+
+.benefit-item {
+    background: #f7f9fc;
+
+    border: 1px solid #e7ecf2;
+
+    border-radius: 12px;
+
+    padding: 13px 15px;
+
+    color: #53657a;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SIDEBAR INFORMATION
+========================================================= */
+
+.info-card {
+    background: #f7f9fc;
+
+    border: 1px solid #e4eaf1;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    position: sticky;
+
+    top: 20px;
+}
+
+
+.info-card h3 {
+    margin: 0 0 18px;
+
+    color: #102a43;
+
+    font-size: 19px;
+}
+
+
+.info-row {
+    padding: 13px 0;
+
+    border-bottom:
+        1px solid #e5eaf0;
+}
+
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+
+.info-label {
+    display: block;
+
+    color: #7a8798;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    margin-bottom: 5px;
+}
+
+
+.info-value {
+    color: #263b53;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   APPLY BOX
+========================================================= */
+
+.apply-box {
+    margin-top: 22px;
+
+    padding: 22px;
+
+    background: #0b2d57;
+
+    border-radius: 17px;
+
+    color: white;
+}
+
+
+.apply-box h3 {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+}
+
+
+.apply-box p {
+    margin: 0 0 18px;
+
+    color: #dce8f5;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+.apply-box a {
+    display: block;
+
+    text-align: center;
+
+    padding: 12px 16px;
+
+    background: white;
+
+    color: #0b2d57;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+
+    transition: 0.2s ease;
+}
+
+
+.apply-box a:hover {
+    background: #edf3fa;
+}
+
+
+/* =========================================================
+   ALREADY APPLIED
+========================================================= */
+
+.applied-box {
+    margin-top: 22px;
+
+    padding: 18px;
+
+    background: #eef8f1;
+
+    border: 1px solid #cce8d4;
+
+    border-radius: 15px;
+}
+
+
+.applied-box h3 {
+    margin: 0 0 7px;
+
+    color: #21733b;
+
+    font-size: 17px;
+}
+
+
+.applied-box p {
+    margin: 0;
+
+    color: #47705a;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   APPLICATION PROCESS
+========================================================= */
+
+.application-process {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+
+.process-step {
+    padding: 16px;
+
+    background: #f7f9fc;
+
+    border: 1px solid #e7ecf2;
+
+    border-radius: 13px;
+}
+
+
+.process-number {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #0b2d57;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    margin-bottom: 9px;
+}
+
+
+.process-step strong {
+    display: block;
+
+    color: #263b53;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+}
+
+
+.process-step span {
+    color: #718096;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .job-content-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .info-card {
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .job-detail-page {
+        padding: 20px 15px 40px;
+    }
+
+    .job-main-card {
+        padding: 20px;
+    }
+
+    .job-header {
+        flex-direction: column;
+    }
+
+    .job-header-left {
+        align-items: flex-start;
+    }
+
+    .job-title {
+        font-size: 24px;
+    }
+
+    .company-logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .header-apply-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="job-detail-page">
+
+
+    <!-- =====================================================
+         BACK TO JOBS
+    ====================================================== -->
+
+    <a
+        href="{{ url_for('jobs') }}"
+        class="back-job"
+    >
+        ← Back to Jobs
+    </a>
+
+
+    <!-- =====================================================
+         MAIN CARD
+    ====================================================== -->
+
+    <div class="job-main-card">
+
+
+        <!-- =================================================
+             JOB HEADER
+        ================================================== -->
+
+        <div class="job-header">
+
+            <div class="job-header-left">
+
+
+                <!-- COMPANY LOGO -->
+
+                <div class="company-logo">
+
+                    {% if job.get('logo') %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='css/images/' ~ job['logo']
+                            ) }}"
+                            alt="{{ job['company'] or 'Company' }}"
+                            onerror="
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='flex';
+                            "
+                        >
+
+                    {% endif %}
+
+
+                    <div
+                        class="company-letter"
+                        {% if job.get('logo') %}
+                            style="display:none;"
+                        {% endif %}
+                    >
+
+                        {{ job['company'][0]|upper
+                           if job.get('company')
+                           else 'J' }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- TITLE -->
+
+                <div>
+
+                    <h1 class="job-title">
+                        {{ job['title'] or 'Job Opportunity' }}
+                    </h1>
+
+                    <p class="company-name">
+                        {{ job['company']
+                           or 'Company not specified' }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- HEADER APPLY -->
+
+            {% if application %}
+
+                <span
+                    class="header-apply-btn"
+                    style="
+                        background:#eaf7ee;
+                        color:#21733b;
+                    "
+                >
+                    ✓ Applied
+                </span>
+
+            {% else %}
+
+                <a
+                    href="{{ url_for(
+                        'apply_job',
+                        job_id=job['id']
+                    ) }}"
+                    class="header-apply-btn"
+                >
+                    Apply Now →
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <hr class="job-divider">
+
+
+        <!-- =================================================
+             QUICK JOB INFORMATION
+        ================================================== -->
+
+        <div class="job-meta-grid">
+
+
+            <!-- LOCATION -->
+
+            <div class="job-meta-card">
+
+                <div class="job-meta-icon">
+                    📍
+                </div>
+
+                <div class="job-meta-label">
+                    Location
+                </div>
+
+                <div class="job-meta-value">
+                    {{ job['location']
+                       or 'Not specified' }}
+                </div>
+
+            </div>
+
+
+            <!-- JOB TYPE -->
+
+            <div class="job-meta-card">
+
+                <div class="job-meta-icon">
+                    💼
+                </div>
+
+                <div class="job-meta-label">
+                    Job Type
+                </div>
+
+                <div class="job-meta-value">
+                    {{ job['job_type']
+                       or 'Full-time' }}
+                </div>
+
+            </div>
+
+
+            <!-- SALARY -->
+
+            <div class="job-meta-card">
+
+                <div class="job-meta-icon">
+                    💰
+                </div>
+
+                <div class="job-meta-label">
+                    Salary
+                </div>
+
+                <div class="job-meta-value">
+                    {{ job['salary']
+                       or 'Not specified' }}
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIENCE -->
+
+            <div class="job-meta-card">
+
+                <div class="job-meta-icon">
+                    🧑‍💻
+                </div>
+
+                <div class="job-meta-label">
+                    Experience
+                </div>
+
+                <div class="job-meta-value">
+                    {{ job['experience']
+                       or '0 - 3 Years' }}
+                </div>
+
+            </div>
+
+
+            <!-- DEADLINE -->
+
+            <div class="job-meta-card">
+
+                <div class="job-meta-icon">
+                    📅
+                </div>
+
+                <div class="job-meta-label">
+                    Application Deadline
+                </div>
+
+                <div class="job-meta-value">
+                    {{ job['deadline']
+                       or 'Not specified' }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <div class="job-content-layout">
+
+
+            <!-- =================================================
+                 LEFT SIDE
+            ================================================== -->
+
+            <div class="job-content">
+
+
+                <!-- =================================================
+                     ABOUT THIS OPPORTUNITY
+                ================================================== -->
+
+                <div class="introduction-box">
+
+                    <p>
+
+                        This opportunity is designed for candidates
+                        who want to build practical industry experience,
+                        work on real-world technology projects and
+                        develop professional skills in a collaborative
+                        working environment.
+
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     JOB DESCRIPTION
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Job Description
+                    </h2>
+
+                    <p>
+
+                        {{ job['description']
+                           or
+                           'This position provides an opportunity to work on real-world technology projects and develop professional skills. The selected candidate will work with the team to understand project requirements, contribute to assigned tasks and support the successful completion of project activities.' }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     RESPONSIBILITIES
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Key Responsibilities
+                    </h2>
+
+
+                    {% if job.get('responsibilities') %}
+
+                        <p>
+                            {{ job['responsibilities'] }}
+                        </p>
+
+                    {% else %}
+
+                        <ul class="responsibility-list">
+
+                            <li>
+                                Understand project requirements
+                                and assigned responsibilities.
+                            </li>
+
+                            <li>
+                                Work with team members to complete
+                                assigned technical tasks.
+                            </li>
+
+                            <li>
+                                Develop, test and improve solutions
+                                according to project requirements.
+                            </li>
+
+                            <li>
+                                Maintain clear documentation of
+                                completed work.
+                            </li>
+
+                            <li>
+                                Participate in discussions and
+                                provide updates about assigned tasks.
+                            </li>
+
+                            <li>
+                                Follow company development,
+                                quality and security practices.
+                            </li>
+
+                        </ul>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =================================================
+                     REQUIRED SKILLS
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Required Skills
+                    </h2>
+
+
+                    {% if job.get('skills') %}
+
+                        <div class="skills-container">
+
+                            {% for skill in
+                                job['skills'].split(',') %}
+
+                                {% if skill.strip() %}
+
+                                    <span class="skill-tag">
+
+                                        {{ skill.strip() }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <p>
+                            The required skills for this position
+                            have not been specified.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =================================================
+                     QUALIFICATIONS
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Educational Qualifications
+                    </h2>
+
+
+                    <div class="qualification-box">
+
+                        <p>
+
+                            {{ job['education']
+                               or
+                               'Candidates with a relevant degree, diploma or educational background in Information Technology, Computer Science or a related field may be considered.' }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     EXPERIENCE
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Experience Required
+                    </h2>
+
+                    <p>
+
+                        {{ job['experience']
+                           or
+                           'Freshers and candidates with relevant project or internship experience may be considered.' }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     BENEFITS
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Benefits & Learning Opportunities
+                    </h2>
+
+
+                    {% if job.get('benefits') %}
+
+                        <p>
+                            {{ job['benefits'] }}
+                        </p>
+
+                    {% else %}
+
+                        <div class="benefit-list">
+
+                            <div class="benefit-item">
+                                🚀 Practical project experience
+                            </div>
+
+                            <div class="benefit-item">
+                                🧠 Opportunity to improve technical skills
+                            </div>
+
+                            <div class="benefit-item">
+                                🤝 Professional team collaboration
+                            </div>
+
+                            <div class="benefit-item">
+                                📚 Industry-oriented learning
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =================================================
+                     WHAT YOU WILL LEARN
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        What You Will Learn
+                    </h2>
+
+                    <ul class="responsibility-list">
+
+                        <li>
+                            Practical understanding of
+                            real-world project development.
+                        </li>
+
+                        <li>
+                            Professional communication and
+                            collaboration.
+                        </li>
+
+                        <li>
+                            Better understanding of development
+                            and problem-solving processes.
+                        </li>
+
+                        <li>
+                            Experience working with project
+                            requirements and deadlines.
+                        </li>
+
+                        <li>
+                            Improved technical and professional
+                            skills.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- =================================================
+                     APPLICATION PROCESS
+                ================================================== -->
+
+                <div class="job-section">
+
+                    <h2>
+                        Application Process
+                    </h2>
+
+
+                    <div class="application-process">
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                1
+                            </div>
+
+                            <strong>
+                                Review
+                            </strong>
+
+                            <span>
+                                Read the job description and
+                                requirements carefully.
+                            </span>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                2
+                            </div>
+
+                            <strong>
+                                Apply
+                            </strong>
+
+                            <span>
+                                Submit your personal details
+                                and latest resume.
+                            </span>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                3
+                            </div>
+
+                            <strong>
+                                Screening
+                            </strong>
+
+                            <span>
+                                Your application can be reviewed
+                                by the hiring team.
+                            </span>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                4
+                            </div>
+
+                            <strong>
+                                Interview
+                            </strong>
+
+                            <span>
+                                Shortlisted candidates may be
+                                contacted for further rounds.
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT SIDEBAR
+            ================================================== -->
+
+            <div class="job-sidebar">
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Job Information
+                    </h3>
+
+
+                    <!-- COMPANY -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Company
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['company']
+                               or 'Not specified' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Location
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['location']
+                               or 'Not specified' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- JOB TYPE -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Job Type
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['job_type']
+                               or 'Full-time' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Experience
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['experience']
+                               or '0 - 3 Years' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- EDUCATION -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Education
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['education']
+                               or 'Not specified' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- SALARY -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Salary
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['salary']
+                               or 'Not specified' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- DEADLINE -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Deadline
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ job['deadline']
+                               or 'Not specified' }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         APPLY SECTION
+                    ================================================== -->
+
+                    {% if application %}
+
+
+                        <div class="applied-box">
+
+                            <h3>
+                                ✓ Application Submitted
+                            </h3>
+
+                            <p>
+
+                                You have already submitted
+                                an application for this job.
+
+                            </p>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <div class="apply-box">
+
+                            <h3>
+                                🚀 Interested in this opportunity?
+                            </h3>
+
+                            <p>
+
+                                Take the next step in your career.
+                                Submit your application along with
+                                your latest resume.
+
+                            </p>
+
+
+                            <a
+                                href="{{ url_for(
+                                    'apply_job',
+                                    job_id=job['id']
+                                ) }}"
+                            >
+                                Apply Now →
+                            </a>
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

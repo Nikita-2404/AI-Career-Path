@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Path & Job Recommendation</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    #273469 0%,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 80% 80%,
+                    #4b145f 0%,
+                    transparent 35%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #07111f,
+                    #111827
+                );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            text-align: center;
+
+        }
+
+        h1 {
+
+            font-size: 46px;
+
+            margin-bottom: 15px;
+
+        }
+
+        h1 span {
+
+            color: #60a5fa;
+
+        }
+
+        .subtitle {
+
+            color: #cbd5e1;
+
+            font-size: 18px;
+
+            margin-bottom: 50px;
+
+        }
+
+        .cards {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 30px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .card {
+
+            width: 350px;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.08
+            );
+
+            border: 1px solid
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.15
+                    );
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,0.35);
+
+        }
+
+        .icon {
+
+            font-size: 60px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .card h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .card p {
+
+            color: #cbd5e1;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+
+        }
+
+        .btn {
+
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            margin: 5px;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+        .btn:hover {
+
+            background: #3b82f6;
+
+            transform: translateY(-2px);
+
+        }
+
+        .admin {
+
+            background: #7c3aed;
+
+        }
+
+        .admin:hover {
+
+            background: #8b5cf6;
+
+        }
+
+        .footer {
+
+            margin-top: 45px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        AI Career Path
+        <span>&</span>
+        Job Recommendation
+    </h1>
+
+
+    <p class="subtitle">
+
+        Discover your ideal career path
+        using Artificial Intelligence and Machine Learning
+
+    </p>
+
+
+    <div class="cards">
+
+
+        <!-- USER CARD -->
+
+        <div class="card">
+
+            <div class="icon">
+                👨‍🎓
+            </div>
+
+            <h2>
+                User
+            </h2>
+
+            <p>
+
+                Create your account, enter your
+                education, skills and interests,
+                and receive personalized
+                career recommendations.
+
+            </p>
+
+            <a
+                href="{{ url_for('user_login') }}"
+                class="btn"
+            >
+                User Login
+            </a>
+
+
+            <a
+                href="{{ url_for('register') }}"
+                class="btn"
+            >
+                New Registration
+            </a>
+
+        </div>
+
+
+        <!-- ADMIN CARD -->
+
+        <div class="card">
+
+            <div class="icon">
+                🛡️
+            </div>
+
+            <h2>
+                Administrator
+            </h2>
+
+            <p>
+
+                Manage registered users,
+                monitor predictions,
+                view career analytics
+                and manage the platform.
+
+            </p>
+
+            <a
+                href="{{ url_for('admin_login') }}"
+                class="btn admin"
+            >
+                Admin Login
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer">
+
+        AI Career Intelligence System
+        •
+        Machine Learning Project
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

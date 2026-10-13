@@ -1,0 +1,1450 @@
+{% extends "user/base.html" %}
+
+{% block title %}Career Roadmap{% endblock %}
+
+{% block content %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* =========================================
+       PAGE
+    ========================================= */
+
+    .roadmap-page {
+        min-height: calc(100vh - 70px);
+        padding: 22px 25px 45px;
+        background: #f4f7fb;
+        color: #102a43;
+    }
+
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .roadmap-hero {
+        position: relative;
+        overflow: hidden;
+
+        padding: 30px 34px;
+        margin-bottom: 25px;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #081d36,
+                #0d3157,
+                #14558a
+            );
+
+        box-shadow:
+            0 8px 25px rgba(10, 45, 80, 0.20);
+    }
+
+
+    .roadmap-hero::before {
+        content: "";
+
+        position: absolute;
+
+        width: 230px;
+        height: 230px;
+
+        right: -70px;
+        top: -100px;
+
+        border-radius: 50%;
+
+        border: 35px solid rgba(255, 255, 255, 0.06);
+    }
+
+
+    .roadmap-hero::after {
+        content: "";
+
+        position: absolute;
+
+        width: 130px;
+        height: 130px;
+
+        right: 120px;
+        bottom: -80px;
+
+        border-radius: 50%;
+
+        border: 25px solid rgba(255, 255, 255, 0.05);
+    }
+
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+
+        max-width: 750px;
+    }
+
+
+    .hero-label {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 6px 11px;
+
+        margin-bottom: 10px;
+
+        border-radius: 20px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        color: #dbeafe;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+    }
+
+
+    .roadmap-hero h1 {
+        margin: 0 0 8px;
+
+        color: #ffffff;
+
+        font-size: 30px;
+        font-weight: 850;
+
+        line-height: 1.2;
+    }
+
+
+    .roadmap-hero p {
+        margin: 0;
+
+        color: #dbeafe;
+
+        font-size: 14px;
+        line-height: 1.6;
+
+        max-width: 680px;
+    }
+
+
+    /* =========================================
+       ROADMAP SUMMARY
+    ========================================= */
+
+    .roadmap-summary {
+        display: grid;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 13px;
+
+        margin-bottom: 28px;
+    }
+
+
+    .summary-card {
+        background: #ffffff;
+
+        border: 1px solid #c9d9e8;
+
+        border-radius: 13px;
+
+        padding: 15px 17px;
+
+        box-shadow:
+            0 3px 10px rgba(15, 50, 85, 0.05);
+    }
+
+
+    .summary-number {
+        color: #0d4d7c;
+
+        font-size: 21px;
+        font-weight: 850;
+    }
+
+
+    .summary-label {
+        margin-top: 3px;
+
+        color: #536b82;
+
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+
+    /* =========================================
+       ROADMAP TITLE
+    ========================================= */
+
+    .section-heading {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 20px;
+    }
+
+
+    .section-heading h2 {
+        margin: 0;
+
+        color: #102a43;
+
+        font-size: 21px;
+        font-weight: 850;
+    }
+
+
+    .section-heading span {
+        color: #526b82;
+
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+    /* =========================================
+       TIMELINE
+    ========================================= */
+
+    .timeline {
+        position: relative;
+
+        max-width: 1050px;
+
+        margin: auto;
+    }
+
+
+    .timeline::before {
+        content: "";
+
+        position: absolute;
+
+        left: 31px;
+        top: 35px;
+        bottom: 35px;
+
+        width: 3px;
+
+        background:
+            linear-gradient(
+                to bottom,
+                #0d4d7c,
+                #3b82b6,
+                #9fc5df
+            );
+
+        border-radius: 10px;
+    }
+
+
+    /* =========================================
+       ROADMAP STEP
+    ========================================= */
+
+    .roadmap-step {
+        position: relative;
+
+        display: grid;
+
+        grid-template-columns: 64px 1fr;
+
+        gap: 18px;
+
+        margin-bottom: 22px;
+    }
+
+
+    /* =========================================
+       STEP NUMBER
+    ========================================= */
+
+    .step-number {
+        position: relative;
+        z-index: 3;
+
+        width: 64px;
+        height: 64px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #0b3155,
+                #14608f
+            );
+
+        color: #ffffff;
+
+        font-size: 19px;
+
+        font-weight: 850;
+
+        border: 5px solid #f4f7fb;
+
+        box-shadow:
+            0 5px 14px rgba(12, 58, 95, 0.25);
+    }
+
+
+    /* =========================================
+       STEP CONTENT
+    ========================================= */
+
+    .step-card {
+        background: #ffffff;
+
+        border: 1px solid #cad9e7;
+
+        border-radius: 15px;
+
+        padding: 19px 21px;
+
+        box-shadow:
+            0 4px 14px rgba(15, 50, 85, 0.06);
+
+        transition: 0.2s ease;
+    }
+
+
+    .step-card:hover {
+        transform: translateY(-2px);
+
+        border-color: #83a9c7;
+
+        box-shadow:
+            0 8px 20px rgba(15, 50, 85, 0.10);
+    }
+
+
+    /* =========================================
+       STEP HEADER
+    ========================================= */
+
+    .step-top {
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .step-title-area {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 11px;
+    }
+
+
+    .step-icon {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 10px;
+
+        background: #e7f1fa;
+
+        color: #0d4d7c;
+
+        font-size: 18px;
+    }
+
+
+    .step-title h3 {
+        margin: 0 0 3px;
+
+        color: #102a43;
+
+        font-size: 17px;
+
+        font-weight: 850;
+    }
+
+
+    .step-title p {
+        margin: 0;
+
+        color: #5a7187;
+
+        font-size: 12px;
+
+        font-weight: 550;
+    }
+
+
+    /* =========================================
+       STATUS
+    ========================================= */
+
+    .step-status {
+        padding: 5px 9px;
+
+        border-radius: 20px;
+
+        background: #e8f5ee;
+
+        color: #17643b;
+
+        font-size: 10px;
+
+        font-weight: 800;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================
+       STEP DESCRIPTION
+    ========================================= */
+
+    .step-description {
+        margin: 0 0 14px;
+
+        color: #344f68;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================================
+       SKILL AREAS
+    ========================================= */
+
+    .step-columns {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+
+    .skill-box {
+        padding: 13px;
+
+        border-radius: 10px;
+
+        background: #f5f9fd;
+
+        border: 1px solid #d9e5ef;
+    }
+
+
+    .skill-box h4 {
+        margin: 0 0 8px;
+
+        color: #153b5d;
+
+        font-size: 11px;
+
+        font-weight: 850;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    .skill-list {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 6px;
+    }
+
+
+    .skill {
+        padding: 5px 8px;
+
+        border-radius: 6px;
+
+        background: #e2edf7;
+
+        border: 1px solid #c6d9e9;
+
+        color: #16486f;
+
+        font-size: 11px;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================
+       PROJECT BOX
+    ========================================= */
+
+    .project-box {
+        margin-top: 12px;
+
+        padding: 12px 14px;
+
+        border-left: 4px solid #17618f;
+
+        border-radius: 7px;
+
+        background: #eef6fc;
+    }
+
+
+    .project-box strong {
+        display: block;
+
+        margin-bottom: 4px;
+
+        color: #103d61;
+
+        font-size: 11px;
+
+        font-weight: 850;
+    }
+
+
+    .project-box span {
+        color: #38566f;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================================
+       FINAL CAREER READY CARD
+    ========================================= */
+
+    .career-ready {
+        position: relative;
+
+        overflow: hidden;
+
+        margin-top: 10px;
+
+        padding: 25px 27px;
+
+        border-radius: 16px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #09233f,
+                #0d4d7c
+            );
+
+        box-shadow:
+            0 8px 22px rgba(10, 50, 85, 0.18);
+    }
+
+
+    .career-ready::after {
+        content: "✓";
+
+        position: absolute;
+
+        right: 35px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        width: 75px;
+        height: 75px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        border: 2px solid rgba(255, 255, 255, 0.15);
+
+        color: rgba(255, 255, 255, 0.16);
+
+        font-size: 45px;
+
+        font-weight: 900;
+    }
+
+
+    .career-ready h2 {
+        margin: 0 0 7px;
+
+        color: #ffffff;
+
+        font-size: 21px;
+
+        font-weight: 850;
+    }
+
+
+    .career-ready p {
+        margin: 0;
+
+        max-width: 700px;
+
+        color: #dbeafe;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 900px) {
+
+        .roadmap-summary {
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+        }
+
+        .step-columns {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+    @media (max-width: 650px) {
+
+        .roadmap-page {
+            padding: 15px;
+        }
+
+
+        .roadmap-hero {
+            padding: 23px;
+        }
+
+
+        .roadmap-hero h1 {
+            font-size: 25px;
+        }
+
+
+        .roadmap-summary {
+            grid-template-columns: 1fr 1fr;
+        }
+
+
+        .timeline::before {
+            left: 25px;
+        }
+
+
+        .roadmap-step {
+            grid-template-columns: 50px 1fr;
+
+            gap: 12px;
+        }
+
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 14px;
+
+            font-size: 15px;
+        }
+
+
+        .step-top {
+            flex-direction: column;
+        }
+
+
+        .step-card {
+            padding: 16px;
+        }
+
+
+        .career-ready {
+            padding: 21px;
+        }
+
+
+        .career-ready::after {
+            display: none;
+        }
+    }
+</style>
+
+
+<div class="roadmap-page">
+
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section class="roadmap-hero">
+
+        <div class="hero-content">
+
+            <span class="hero-label">
+                🚀 Career Development Plan
+            </span>
+
+            <h1>
+                Your AI Career Roadmap
+            </h1>
+
+            <p>
+                Follow a structured journey from technical foundations
+                to real-world projects, advanced skills and job readiness.
+                Complete each stage to move closer to your target IT career.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SUMMARY
+    ====================================== -->
+
+    <section class="roadmap-summary">
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                05
+            </div>
+
+            <div class="summary-label">
+                Career Stages
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                12+
+            </div>
+
+            <div class="summary-label">
+                Core Skills
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                03+
+            </div>
+
+            <div class="summary-label">
+                Portfolio Projects
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                01
+            </div>
+
+            <div class="summary-label">
+                Career Goal
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         ROADMAP HEADING
+    ====================================== -->
+
+    <div class="section-heading">
+
+        <h2>
+            Step-by-Step Journey
+        </h2>
+
+        <span>
+            Start → Learn → Build → Specialize → Get Hired
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================
+         TIMELINE
+    ====================================== -->
+
+    <div class="timeline">
+
+
+        <!-- =================================
+             STEP 01
+        ================================== -->
+
+        <div class="roadmap-step">
+
+            <div class="step-number">
+                01
+            </div>
+
+
+            <div class="step-card">
+
+
+                <div class="step-top">
+
+                    <div class="step-title-area">
+
+                        <div class="step-icon">
+                            📚
+                        </div>
+
+                        <div class="step-title">
+
+                            <h3>
+                                Foundation
+                            </h3>
+
+                            <p>
+                                Build your technical base
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="step-status">
+                        START HERE
+                    </span>
+
+                </div>
+
+
+                <p class="step-description">
+
+                    Start with the fundamentals required for an IT career.
+                    Understand programming basics, databases and problem-solving
+                    before moving into advanced technologies.
+
+                </p>
+
+
+                <div class="step-columns">
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Learn
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Python Basics</span>
+
+                            <span class="skill">SQL</span>
+
+                            <span class="skill">Git & GitHub</span>
+
+                            <span class="skill">Problem Solving</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Focus
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Logic</span>
+
+                            <span class="skill">Programming</span>
+
+                            <span class="skill">Database</span>
+
+                            <span class="skill">Version Control</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-box">
+
+                    <strong>
+                        🎯 Practice Goal
+                    </strong>
+
+                    <span>
+                        Create small Python programs and practice SQL queries
+                        using a sample database.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             STEP 02
+        ================================== -->
+
+        <div class="roadmap-step">
+
+            <div class="step-number">
+                02
+            </div>
+
+
+            <div class="step-card">
+
+
+                <div class="step-top">
+
+                    <div class="step-title-area">
+
+                        <div class="step-icon">
+                            📊
+                        </div>
+
+                        <div class="step-title">
+
+                            <h3>
+                                Data & Analytics
+                            </h3>
+
+                            <p>
+                                Learn how to understand data
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="step-status">
+                        BUILD SKILLS
+                    </span>
+
+                </div>
+
+
+                <p class="step-description">
+
+                    Learn how to collect, clean, analyze and visualize data.
+                    These skills help you understand real business problems
+                    and make data-driven decisions.
+
+                </p>
+
+
+                <div class="step-columns">
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Learn
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Pandas</span>
+
+                            <span class="skill">NumPy</span>
+
+                            <span class="skill">Excel</span>
+
+                            <span class="skill">Power BI</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Practice
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Data Cleaning</span>
+
+                            <span class="skill">EDA</span>
+
+                            <span class="skill">Charts</span>
+
+                            <span class="skill">Dashboards</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-box">
+
+                    <strong>
+                        🎯 Portfolio Project
+                    </strong>
+
+                    <span>
+                        Create a Sales Analysis dashboard and explain
+                        important business trends using charts.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             STEP 03
+        ================================== -->
+
+        <div class="roadmap-step">
+
+            <div class="step-number">
+                03
+            </div>
+
+
+            <div class="step-card">
+
+
+                <div class="step-top">
+
+                    <div class="step-title-area">
+
+                        <div class="step-icon">
+                            🤖
+                        </div>
+
+                        <div class="step-title">
+
+                            <h3>
+                                Machine Learning
+                            </h3>
+
+                            <p>
+                                Turn data into predictions
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="step-status">
+                        SPECIALIZE
+                    </span>
+
+                </div>
+
+
+                <p class="step-description">
+
+                    Understand how machine learning models learn from data.
+                    Practice preprocessing, training, testing and evaluating
+                    models using real datasets.
+
+                </p>
+
+
+                <div class="step-columns">
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Learn
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Scikit-learn</span>
+
+                            <span class="skill">Regression</span>
+
+                            <span class="skill">Classification</span>
+
+                            <span class="skill">Random Forest</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Concepts
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Train/Test</span>
+
+                            <span class="skill">Accuracy</span>
+
+                            <span class="skill">Features</span>
+
+                            <span class="skill">Prediction</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-box">
+
+                    <strong>
+                        🎯 Portfolio Project
+                    </strong>
+
+                    <span>
+                        Build a machine learning prediction application
+                        and connect the trained model to a Flask web application.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             STEP 04
+        ================================== -->
+
+        <div class="roadmap-step">
+
+            <div class="step-number">
+                04
+            </div>
+
+
+            <div class="step-card">
+
+
+                <div class="step-top">
+
+                    <div class="step-title-area">
+
+                        <div class="step-icon">
+                            🧠
+                        </div>
+
+                        <div class="step-title">
+
+                            <h3>
+                                AI & GenAI
+                            </h3>
+
+                            <p>
+                                Move into modern AI technologies
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="step-status">
+                        ADVANCED
+                    </span>
+
+                </div>
+
+
+                <p class="step-description">
+
+                    Explore modern artificial intelligence concepts and
+                    Generative AI. Learn how AI models can be integrated
+                    into useful applications.
+
+                </p>
+
+
+                <div class="step-columns">
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Learn
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">GenAI</span>
+
+                            <span class="skill">LLMs</span>
+
+                            <span class="skill">Prompting</span>
+
+                            <span class="skill">APIs</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Explore
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">RAG</span>
+
+                            <span class="skill">Embeddings</span>
+
+                            <span class="skill">AI Apps</span>
+
+                            <span class="skill">Automation</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-box">
+
+                    <strong>
+                        🎯 Portfolio Project
+                    </strong>
+
+                    <span>
+                        Build an AI-powered career recommendation application
+                        using machine learning and a web interface.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             STEP 05
+        ================================== -->
+
+        <div class="roadmap-step">
+
+            <div class="step-number">
+                05
+            </div>
+
+
+            <div class="step-card">
+
+
+                <div class="step-top">
+
+                    <div class="step-title-area">
+
+                        <div class="step-icon">
+                            💼
+                        </div>
+
+                        <div class="step-title">
+
+                            <h3>
+                                Job Preparation
+                            </h3>
+
+                            <p>
+                                Convert your skills into opportunities
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="step-status">
+                        CAREER READY
+                    </span>
+
+                </div>
+
+
+                <p class="step-description">
+
+                    Prepare your professional profile, portfolio and
+                    interview skills. Focus on presenting your projects
+                    clearly and applying for suitable entry-level roles.
+
+                </p>
+
+
+                <div class="step-columns">
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Prepare
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">Resume</span>
+
+                            <span class="skill">LinkedIn</span>
+
+                            <span class="skill">GitHub</span>
+
+                            <span class="skill">Portfolio</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-box">
+
+                        <h4>
+                            Interview
+                        </h4>
+
+                        <div class="skill-list">
+
+                            <span class="skill">SQL</span>
+
+                            <span class="skill">Python</span>
+
+                            <span class="skill">ML</span>
+
+                            <span class="skill">HR Questions</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-box">
+
+                    <strong>
+                        🎯 Final Goal
+                    </strong>
+
+                    <span>
+                        Maintain a strong GitHub portfolio, prepare your
+                        resume and start applying for suitable IT roles.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         CAREER READY
+    ====================================== -->
+
+    <section class="career-ready">
+
+        <h2>
+            🎯 Your Destination: Career Ready
+        </h2>
+
+        <p>
+            Keep improving your technical skills, build practical projects,
+            update your portfolio and practice interviews regularly.
+            Every completed stage adds another step toward your IT career.
+        </p>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

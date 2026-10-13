@@ -1,0 +1,8 @@
+@"
+venv/
+.venv/
+__pycache__/
+.env
+*.py[cod]
+model.pkl
+"@ | Out-File -Encoding utf8 .gitignore
